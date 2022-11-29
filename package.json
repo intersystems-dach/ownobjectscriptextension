@@ -2,7 +2,7 @@
   "name": "ownobjectscriptextension",
   "displayName": "OwnObjectscriptExtension",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.73.0"
   },
@@ -10,7 +10,12 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:ownobjectscriptextension.addObjectScriptModifier"
+    "onCommand:ownobjectscriptextension.addObjectScriptModifier",
+    "onCommand:ownobjectscriptextension.toggleShowMessages",
+    "onCommand:ownobjectscriptextension.toggleSaveFile",
+    "onCommand:ownobjectscriptextension.addKeyWord",
+    "onCommand:ownobjectscriptextension.removeKeyWord",
+    "onCommand:ownobjectscriptextension.showKeyWords"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -18,6 +23,26 @@
       {
         "command": "ownobjectscriptextension.addObjectScriptModifier",
         "title": "Add ObjectScript Modifier"
+      },
+      {
+        "command": "ownobjectscriptextension.toggleShowMessages",
+        "title": "Toggle Show Lines-Modified-Messages"
+      },
+      {
+        "command": "ownobjectscriptextension.toggleSaveFile",
+        "title": "Toggle Save File after Add Modifier"
+      },
+      {
+        "command": "ownobjectscriptextension.addKeyWord",
+        "title": "Add ObjectScript Keyword"
+      },
+      {
+        "command": "ownobjectscriptextension.removeKeyWord",
+        "title": "Remove ObjectScript Keyword"
+      },
+      {
+        "command": "ownobjectscriptextension.showKeyWords",
+        "title": "Show ObjectScript Keywords"
       }
     ]
   },

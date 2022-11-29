@@ -1,45 +1,11 @@
 const vscode = require('vscode');
+const fs = require('fs');
+const path = require('path');
 
-let keyWords = [
-  'if',
-  'elseif',
-  'else',
-  'return',
-  'while',
-  'do',
-  'set',
-  'write',
-  'zwrite',
-  'kill',
-  'for',
-  'continue',
-  'quit',
-  'class',
-  'method',
-  'classmethod',
-  'query',
-  'property',
-  'parameter',
-  'zn',
-  'throw',
-  'try',
-  'catch',
-  '{',
-  '}',
-  '//',
-  '/*',
-  '*/',
-  '#',
-  '$$$',
-  '<',
-  'xdata',
-  'storage',
-  'index',
-  'relationship',
-  '(',
-  ')',
-  '&sql',
-];
+const optionsFile = path.join(__dirname, 'options.json');
+let optionsJSON = JSON.parse(fs.readFileSync(optionsFile).toString());
+
+const keyWords = optionsJSON['KeyWords'];
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -51,7 +17,7 @@ function activate(context) {
       // Check if there is an active TexteEditor
       if (vscode.window.activeTextEditor == undefined) {
         vscode.window.showErrorMessage(
-          'Please open a ObjectScript file first!'
+          'Please open an ObjectScript file first!'
         );
         return;
       }
@@ -94,7 +60,7 @@ function activate(context) {
             i = skipUnitlToken(i, '(', ')');
           }
         }
-
+        if (!optionsJSON['ShowMessages']) return;
         // Show message
         if (modifiedLines.length == 0)
           vscode.window.showInformationMessage('No lines modified!');
@@ -108,7 +74,68 @@ function activate(context) {
           );
         }
       });
+      if (optionsJSON['SaveFile'])
+        vscode.window.activeTextEditor.document.save();
     }
+  );
+
+  vscode.commands.registerCommand(
+    'ownobjectscriptextension.toggleShowMessages',
+    function () {
+      optionsJSON['ShowMessages'] = !optionsJSON['ShowMessages'];
+      saveOptions();
+    }
+  );
+
+  vscode.commands.registerCommand(
+    'ownobjectscriptextension.toggleSaveFile',
+    function () {
+      optionsJSON['SaveFile'] = !optionsJSON['SaveFile'];
+      saveOptions();
+    }
+  );
+
+  vscode.commands.registerCommand(
+    'ownobjectscriptextension.addKeyWord',
+    function () {
+      let input = vscode.window.showInputBox({
+        placeHolder: 'Add Keyword',
+      });
+      input.then(function (value) {
+        if (value == undefined) return;
+        value = value.toLowerCase().replace(/\s/g, '');
+        if (keyWords.includes(value)) return;
+        keyWords.push(value);
+        saveOptions();
+        displayKeyWords();
+      });
+    }
+  );
+
+  vscode.commands.registerCommand(
+    'ownobjectscriptextension.removeKeyWord',
+    function () {
+      let input = vscode.window.showInputBox({ placeHolder: 'Remove Keyword' });
+      input.then(function (value) {
+        if (value == undefined) return;
+        let valueTrimmed = value.toLowerCase().replace(/\s/g, '');
+        if (!keyWords.includes(valueTrimmed)) {
+          vscode.window.showErrorMessage('Could not find keyword: ' + value);
+          return;
+        }
+        let index = keyWords.indexOf(valueTrimmed);
+        if (index > -1) {
+          keyWords.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        saveOptions();
+        displayKeyWords();
+      });
+    }
+  );
+
+  vscode.commands.registerCommand(
+    'ownobjectscriptextension.showKeyWords',
+    displayKeyWords
   );
   context.subscriptions.push(disposable);
 }
@@ -172,6 +199,16 @@ function addModifier(line, firstIndex) {
     return line.slice(0, firstIndex) + 'Write ' + line.slice(firstIndex);
   }
   return line.slice(0, firstIndex) + 'Do ' + line.slice(firstIndex);
+}
+
+function saveOptions() {
+  fs.writeFileSync(optionsFile, JSON.stringify(optionsJSON, null, 2));
+}
+
+function displayKeyWords() {
+  let s = '';
+  for (let key in keyWords) s += keyWords[key] + ', ';
+  vscode.window.showInformationMessage(s);
 }
 
 module.exports = {
