@@ -17,6 +17,8 @@ The <a href= "https://intersystems-community.github.io/vscode-objectscript/">Obj
 
 ## Install
 
+Clone this repository under <code>~/.vscode/extensions</code>.
+
 <pre>
 git clone https://github.com/phil1436/ownobjectscriptextension C:\Users\your-user\.vscode\extensions\ownobjectscriptextension
 </pre>
@@ -38,7 +40,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-### 0.0.1
+## [v0.0.1](https://github.com/phil1436/ownobjectscriptextension/releases/tag/0.0.1)
 
 <i>Initial release</i>
 
