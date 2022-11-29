@@ -40,7 +40,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-## [v0.0.1](https://github.com/phil1436/ownobjectscriptextension/releases/tag/0.0.1)
+## [v0.0.1](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.1)
 
 <i>Initial release</i>
 
