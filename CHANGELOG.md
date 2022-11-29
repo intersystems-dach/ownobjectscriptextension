@@ -2,7 +2,7 @@
 
 ---
 
-## [v0.0.2](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.2) (2022-11-?)
+## [v0.0.2](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.2) (2022-11-29)
 
 - options.json added
 - Command `Toggle Show Lines-Modified-Messages` added
