@@ -55,7 +55,7 @@ Reload window after installation!
 
 ### Own ObjectScript Modifier
 
-- `Add ObjectScript Modifier`: Adds `Set`, `Do` and `Write` modifier to your ObjectScript code.
+- `Add ObjectScript Modifier`: Adds `Set`, `Do` and `Write` modifier to your ObjectScript code. See [here](https://github.com/phil1436/ownobjectscriptextension#add-objectscript-modifier) for more information.
 - `Show ObjectScript Keywords`: Shows the current list of keywords.
 - `Add ObjectScript Keyword`: Adds an Objectscript keyword to options.json. If a line starts with one of those keywords no modifier will be added.
 - `Remove ObjectScript Keyword`: Remove an ObjectScript keyword.
@@ -64,7 +64,7 @@ Reload window after installation!
 
 ### Own ObjectScript Comment
 
-- `Add Method Description Template`: Adds a description template to your Method or ClassMethod.
+- `Add Method Description Template`: Adds a description template to your Method or ClassMethod. See [here](https://github.com/phil1436/ownobjectscriptextension#add-method-description-template) for more information.
 
 <!-- ## Extension Settings
 
