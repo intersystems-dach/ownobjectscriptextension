@@ -22,7 +22,7 @@ Generates description templates for your Methods. Just put your cursor in the Me
 
 <img alt="Gif" src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoAddDescription.gif" width="100%"/>
 
-<img alt="png" src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoAddDescriptionClassReference.png" width="100%"/>
+<img alt="png" src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoAddDescriptionClassReference.png" width="70%"/>
 
 > Tip: You can change the template in the options.json file.
 
