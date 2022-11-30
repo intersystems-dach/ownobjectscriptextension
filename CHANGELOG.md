@@ -2,6 +2,16 @@
 
 ---
 
+## [v0.0.3](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.3) (2022-11-30)
+
+- Design changes
+- Categories changed
+- `Toggle Save File after Add Modifier` renamed to `Toggle Save File after Command`
+- Command `Open Settings File` added
+- Command `Add Method Description Template` added
+
+---
+
 ## [v0.0.2](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.2) (2022-11-29)
 
 - options.json added
