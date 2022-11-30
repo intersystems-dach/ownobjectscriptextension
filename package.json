@@ -5,7 +5,7 @@
   "author": "Philipp B.",
   "publisher": "Philipp B.",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "github",
     "url": "https://github.com/phil1436/ownobjectscriptextension"
@@ -29,7 +29,9 @@
     "onCommand:ownobjectscriptextension.toggleSaveFile",
     "onCommand:ownobjectscriptextension.addKeyWord",
     "onCommand:ownobjectscriptextension.removeKeyWord",
-    "onCommand:ownobjectscriptextension.showKeyWords"
+    "onCommand:ownobjectscriptextension.showKeyWords",
+    "onCommand:ownobjectscriptextension.addMethodDescriptionTemplate",
+    "onCommand:ownobjectscriptextension.openSettings"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -37,32 +39,42 @@
       {
         "command": "ownobjectscriptextension.addObjectScriptModifier",
         "title": "Add ObjectScript Modifier",
-        "category": "Own ObjectScript"
+        "category": "Own ObjectScript Modifier"
       },
       {
         "command": "ownobjectscriptextension.toggleShowMessages",
         "title": "Toggle Show Lines-Modified-Messages",
-        "category": "Own ObjectScript"
+        "category": "Own ObjectScript Settings"
+      },
+      {
+        "command": "ownobjectscriptextension.openSettings",
+        "title": "Open Settings File",
+        "category": "Own ObjectScript Settings"
       },
       {
         "command": "ownobjectscriptextension.toggleSaveFile",
-        "title": "Toggle Save File after Add Modifier",
-        "category": "Own ObjectScript"
+        "title": "Toggle Save File after Command",
+        "category": "Own ObjectScript Settings"
       },
       {
         "command": "ownobjectscriptextension.addKeyWord",
         "title": "Add ObjectScript Keyword",
-        "category": "Own ObjectScript"
+        "category": "Own ObjectScript Modifier"
       },
       {
         "command": "ownobjectscriptextension.removeKeyWord",
         "title": "Remove ObjectScript Keyword",
-        "category": "Own ObjectScript"
+        "category": "Own ObjectScript Modifier"
       },
       {
         "command": "ownobjectscriptextension.showKeyWords",
         "title": "Show ObjectScript Keywords",
-        "category": "Own ObjectScript"
+        "category": "Own ObjectScript Modifier"
+      },
+      {
+        "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
+        "title": "Add Method Description Template",
+        "category": "Own ObjectScript Comment"
       }
     ]
   },
