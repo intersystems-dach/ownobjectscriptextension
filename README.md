@@ -121,6 +121,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 ---
 
 by Philipp B.
+
 powered by [InterSystems](https://www.intersystems.com/).
 
 *This application is **not** supported by InterSystems Corporation.*
