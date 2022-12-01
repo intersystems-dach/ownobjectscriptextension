@@ -2,6 +2,13 @@
 
 ---
 
+## [v0.0.4](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.4) (2022-12-1)
+
+- Bug fixes
+- Command `Add Inline Comments` added
+
+---
+
 ## [v0.0.3](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.3) (2022-11-30)
 
 - Design changes
