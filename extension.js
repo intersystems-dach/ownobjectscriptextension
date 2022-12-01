@@ -15,7 +15,7 @@ function activate(context) {
   let disposable = vscode.commands.registerCommand(
     'ownobjectscriptextension.addObjectScriptModifier',
     function () {
-      preConditions();
+      if (!preConditions()) return;
 
       vscode.window.activeTextEditor.edit(function (editBuilder) {
         let modifiedLines = [];
@@ -211,7 +211,8 @@ function activate(context) {
   vscode.commands.registerCommand(
     'ownobjectscriptextension.addMethodDescriptionTemplate',
     function () {
-      preConditions();
+      if (!preConditions()) return;
+
       let startLine = undefined;
       let lineAbove = undefined;
       // Find method
@@ -326,6 +327,86 @@ function activate(context) {
     }
   );
 
+  vscode.commands.registerCommand(
+    'ownobjectscriptextension.addInlineComments',
+    function () {
+      if (!preConditions()) return;
+      let inlineCount = optionsJSON['InLineCommentsCount'];
+      if (inlineCount <= 0) {
+        vscode.window.showErrorMessage(
+          'InLineCommentsCount must be grater than 0'
+        );
+        return;
+      }
+      let endIndex = undefined;
+      let startIndex = undefined;
+      // Find method
+      for (
+        let i = vscode.window.activeTextEditor.selection.start.line;
+        i >= 0;
+        i--
+      ) {
+        let line = vscode.window.activeTextEditor.document.lineAt(i);
+        let trimedLine = line.text.toLowerCase().replace(/\s/g, '');
+        if (
+          trimedLine.startsWith('method') ||
+          trimedLine.startsWith('classmethod')
+        ) {
+          while (!line.text.includes('{')) {
+            i++;
+            line = vscode.window.activeTextEditor.document.lineAt(i);
+          }
+          startIndex = i;
+          endIndex = skipUnitlToken(i, '{', '}');
+          break;
+        }
+      }
+      vscode.window.activeTextEditor.edit(function (editBuilder) {
+        let count = 0;
+        for (let i = startIndex; i <= endIndex; i++) {
+          let trimmedLine = vscode.window.activeTextEditor.document
+            .lineAt(i)
+            .text.toLowerCase()
+            .replace(/\s/g, '');
+          if (trimmedLine == '{' || trimmedLine == '}' || trimmedLine == '')
+            continue;
+          if (
+            trimmedLine.startsWith('//') ||
+            trimmedLine.startsWith(';') ||
+            trimmedLine.includes('/*') ||
+            trimmedLine.includes('*/')
+          ) {
+            count = 0;
+            continue;
+          }
+          count++;
+          if (count == inlineCount + 1) {
+            count = 1;
+            //Insert
+            let c =
+              vscode.window.activeTextEditor.document.lineAt(
+                i
+              ).firstNonWhitespaceCharacterIndex;
+            let newLine = '// TODO\n';
+            for (
+              let j = 0;
+              j <
+              vscode.window.activeTextEditor.document.lineAt(i)
+                .firstNonWhitespaceCharacterIndex;
+              j++
+            ) {
+              newLine += ' ';
+            }
+            editBuilder.insert(new vscode.Position(i, c), newLine);
+          }
+        }
+      });
+      //Save if option is turned on
+      if (optionsJSON['SaveFile'])
+        vscode.window.activeTextEditor.document.save();
+    }
+  );
+
   context.subscriptions.push(disposable);
 }
 
@@ -376,13 +457,6 @@ function makeParemterTemplate(startLine) {
         );
         parameterTemplate += '/// ' + temp + '\n';
       }
-      /* parameterTemplate +=
-        '/// <li>' +
-        name +
-        (parameterArray[i].includes('=') ? '(optional)' : '') +
-        ': ' +
-        name +
-        'Description</li>\n'; */
     }
   }
   return parameterTemplate;
@@ -392,14 +466,15 @@ function preConditions() {
   // Check if there is an active TexteEditor
   if (vscode.window.activeTextEditor == undefined) {
     vscode.window.showErrorMessage('Please open an ObjectScript file first!');
-    return;
+    return false;
   }
 
   // Check if TextEditor is ObjectScript
   if (!vscode.window.activeTextEditor.document.fileName.endsWith('.cls')) {
     vscode.window.showErrorMessage('Only works with ObjectScript files!');
-    return;
+    return false;
   }
+  return true;
 }
 
 /**
