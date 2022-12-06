@@ -78,22 +78,18 @@ function activate(context) {
         'Show Message: ' + (optionsJSON['ShowMessages'] ? 'ON' : 'OFF'),
         4000
       );
-
-      /* vscode.window
-        .showInformationMessage(
-          'Show Message: ' + (optionsJSON['ShowMessages'] ? 'ON' : 'OFF'),
-          ...[optionsJSON['ShowMessages'] ? 'Turn OFF' : 'Turn ON']
-        )
-        .then((item) => {
-          if (item == 'Turn OFF') {
-            optionsJSON['ShowMessages'] = false;
-            saveOptions();
-          } else if (item == 'Turn ON') {
-            optionsJSON['ShowMessages'] = true;
-            saveOptions();
-          }
-        }); */
-
+      saveOptions();
+    }
+  );
+  //toggle OpenSQLFile
+  vscode.commands.registerCommand(
+    'ownobjectscriptextension.toggleOpenSqlFile',
+    function () {
+      optionsJSON['OpenSQLFile'] = !optionsJSON['OpenSQLFile'];
+      vscode.window.setStatusBarMessage(
+        'Open SQL File: ' + (optionsJSON['OpenSQLFile'] ? 'ON' : 'OFF'),
+        4000
+      );
       saveOptions();
     }
   );
@@ -107,21 +103,6 @@ function activate(context) {
         'Save file: ' + (optionsJSON['SaveFile'] ? 'ON' : 'OFF'),
         4000
       );
-
-      /* vscode.window
-        .showInformationMessage(
-          'Save file: ' + (optionsJSON['SaveFile'] ? 'ON' : 'OFF'),
-          ...[optionsJSON['SaveFile'] ? 'Turn OFF' : 'Turn ON']
-        )
-        .then((item) => {
-          if (item == 'Turn OFF') {
-            optionsJSON['SaveFile'] = false;
-            saveOptions();
-          } else if (item == 'Turn ON') {
-            optionsJSON['SaveFile'] = true;
-            saveOptions();
-          }
-        }); */
       saveOptions();
     }
   );
@@ -327,6 +308,7 @@ function activate(context) {
     }
   );
 
+  //add inline comments
   vscode.commands.registerCommand(
     'ownobjectscriptextension.addInlineComments',
     function () {
@@ -404,6 +386,43 @@ function activate(context) {
       //Save if option is turned on
       if (optionsJSON['SaveFile'])
         vscode.window.activeTextEditor.document.save();
+    }
+  );
+
+  //make select statement
+  vscode.commands.registerCommand(
+    'ownobjectscriptextension.makeSelectStatement',
+    function () {
+      if (!preConditions()) return;
+
+      let className = ownReplaceAll(
+        vscode.window.activeTextEditor.document.fileName.replace('.cls', ''),
+        '\\',
+        '_'
+      ).replace('_', '');
+      let lastIndex = className.lastIndexOf('_');
+
+      if (lastIndex == -1) {
+        vscode.window.showErrorMessage('Something went wrong!');
+        return;
+      }
+
+      className =
+        className.substring(0, lastIndex) +
+        '.' +
+        className.substring(lastIndex + 1);
+
+      let selectStmt = 'SELECT *\nFROM ' + className;
+      //Copy to clipboard
+      vscode.env.clipboard.writeText(selectStmt);
+
+      if (optionsJSON['OpenSQLFile']) {
+        vscode.workspace
+          .openTextDocument({ language: 'sql', content: selectStmt })
+          .then((a) => {
+            vscode.window.showTextDocument(a, 1, false);
+          });
+      }
     }
   );
 

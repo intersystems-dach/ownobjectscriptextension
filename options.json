@@ -26,6 +26,7 @@
     "ExampleMethod": ["<EXAMPLE> Do instance.*methodname*()</EXAMPLE>"]
   },
   "InLineCommentsCount": 5,
+  "OpenSQLFile": false,
   "KeyWords": [
     "if",
     "elseif",
