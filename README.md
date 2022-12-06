@@ -120,8 +120,8 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ---
 
-<font size="1">by Philipp B.
-powered by [InterSystems](https://www.intersystems.com/).</font>
+by Philipp B.
 
+powered by [InterSystems](https://www.intersystems.com/).
 
-<font size = "1">*This application is <b>not</b> supported by InterSystems Corporation.*</font>
+*This application is **not** supported by InterSystems Corporation.*
