@@ -2,28 +2,24 @@
   "ShowMessages": true,
   "SaveFile": false,
   "MethodCommentTemplate": {
-    "__comment": [
-      "This is the template for your method Description.",
-      "Each string in the array will be added in a new line.",
-      "Field 'MethodDescription' will be the first line of your template and descripes the method.",
-      "Field 'ParameterDescription' will add for each parameter of the method and descripes the parameter usage.",
-      "Field 'ReturnDescription' will only be added if the method has a return value.",
-      "Field 'ExampleClassMethod' will only be added if the method is a classmethod and gives a example for usage of the method.",
-      "Field 'ExampleMethod' will only be added if the method is a instance method and gives a example for usage of the method.",
-      "Use spaceholder *classname* for the current class name",
-      "Use spaceholder *methodname* for the current method name",
-      "Use spaceholder *parametername* for the parametername (can only be used in the ParameterDescription field) ",
-      "Use spaceholder *optional* will be replaced by '(optional)' if the current parameter is optional (can only be used in the ParameterDescription field) "
-    ],
-    "MethodDescription": ["*methodname*Description"],
-    "ParameterDescription": [
-      "<li>*optional**parametername*: *parametername*Description</li>"
-    ],
-    "ReturnDescription": ["<li><b>returns</b>: </li>"],
-    "ExampleClassMethod": [
-      "<EXAMPLE> Do ##class(*classname*).*methodname*()</EXAMPLE>"
-    ],
-    "ExampleMethod": ["<EXAMPLE> Do instance.*methodname*()</EXAMPLE>"]
+    /*  
+    This is the template for your method Description.
+    Each string in the array will be added in a new line.
+    Field 'MethodDescription' will be the first line of your template and descripes the method.
+    Field 'ParameterDescription' will add for each parameter of the method and descripes the parameter usage.
+    Field 'ReturnDescription' will only be added if the method has a return value.
+    Field 'ExampleClassMethod' will only be added if the method is a classmethod and gives a example for usage of the method.
+    Field 'ExampleMethod' will only be added if the method is a instance method and gives a example for usage of the method.
+    Use spaceholder *classname* for the current class name
+    Use spaceholder *methodname* for the current method name
+    Use spaceholder *parametername* for the parametername (can only be used in the ParameterDescription field) 
+    Use spaceholder *optional* will be replaced by '(optional)' if the current parameter is optional (can only be used in the ParameterDescription field)
+    */
+    "MethodDescription":      ["*methodname*Description"],
+    "ParameterDescription":   ["<li>*optional**parametername*: *parametername*Description</li>"],
+    "ReturnDescription":      ["<li><b>returns</b>: </li>"],
+    "ExampleClassMethod":     ["<EXAMPLE> Do ##class(*classname*).*methodname*()</EXAMPLE>"],
+    "ExampleMethod":          ["<EXAMPLE> Do instance.*methodname*()</EXAMPLE>"]
   },
   "InLineCommentsCount": 5,
   "KeyWords": [
