@@ -13,6 +13,7 @@ Generates description templates for your Methods.
 ### `Add ObjectScript Modifier`
 
 This command automatically adds `Set`, `Do` and `Write` to your InterSystems ObjectScript code.
+
 ![demo](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demo.gif)
 
 
@@ -21,6 +22,7 @@ This command automatically adds `Set`, `Do` and `Write` to your InterSystems Obj
 ### `Add Method Description Template`
 
 Generates description templates for your Methods. Just put your cursor in the Method and execute this command. Only works with `Method` and `ClassMethod`.
+
 ![demoAddDescription](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoAddDescription.gif)
 
 
@@ -54,6 +56,7 @@ Reload window after installation!
 - `Open Settings File`: Opens the `options.json` file.
 - `Toggle Save File after Command`: Toggle if the file gets saved after a Command (is off by default).
 - `Toggle Show Lines-Modified-Messages`: Toggle if a message box will be displayed after a Command (is on by default).
+- `Toggle Open SQL File`: Toggle if a sql file will be genarted after a `Own ObjectScript SQL` Command (is off by default).
 
 ### Own ObjectScript Modifier
 
@@ -69,6 +72,12 @@ Reload window after installation!
 - `Add Method Description Template`: Adds a description template to your Method or ClassMethod. See [here](https://github.com/phil1436/ownobjectscriptextension#add-method-description-template) for more information.
 - `Add Inline Comments`: Adds a comment in the current Method every specified count of lines without any comment (Default is every 5 lines).
 
+### Own ObjectScript SQL
+
+- `Make Select Statement`: Copies a SQL-Select-Statement based on the currently opened file to the clipboard. If *OpenSQLFile* is enabled a sql file will be generated.
+
+> Tip: Install the [SQLTools](https://github.com/mtxr/vscode-sqltools) Extension to execute the query directly in VSCode.
+
 ---
 
 ## Options
@@ -80,6 +89,7 @@ Open the *options.json* file via `Own ObjectScript Settings: Open Settings File`
 - *MethodCommentTemplate*: The template for the method description (See *__comment* field for further information).
 - *InLineCommentsCount*: Sets the line count between added comments for ``(Must be greater than 0).
 - *KeyWords*: Sets the keywords for `Own ObjectScript Modifier: Add Method Description Template`, so a line starting with one of those keywords will be ignored (Can be set via `Own ObjectScript Modifier: Add ObjectScript Keyword` and `Own ObjectScript Modifier: Remove ObjectScript Keyword`).
+- *OpenSQLFile*: Set if a sql file will be opend with `Own ObjectScript SQL: Make SQL Select File` (Can be set `Own ObjectScript Settings: Toggle Open SQL File`).
 
 <!-- ## Extension Settings
 
@@ -98,6 +108,10 @@ Calling out known issues can help limit users opening duplicate issues against y
 ---
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
+
+## [v0.0.5](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.5)
+
+- Commands added
 
 ## [v0.0.4](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.4)
 
