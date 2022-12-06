@@ -5,7 +5,7 @@
   "author": "Philipp B.",
   "publisher": "Philipp B.",
   "license": "MIT",
-  "version": "0.0.4",
+  "version": "0.0.3",
   "repository": {
     "type": "github",
     "url": "https://github.com/phil1436/ownobjectscriptextension"
@@ -31,8 +31,7 @@
     "onCommand:ownobjectscriptextension.removeKeyWord",
     "onCommand:ownobjectscriptextension.showKeyWords",
     "onCommand:ownobjectscriptextension.addMethodDescriptionTemplate",
-    "onCommand:ownobjectscriptextension.openSettings",
-    "onCommand:ownobjectscriptextension.addInlineComments"
+    "onCommand:ownobjectscriptextension.openSettings"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -75,11 +74,6 @@
       {
         "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
         "title": "Add Method Description Template",
-        "category": "Own ObjectScript Comment"
-      },
-      {
-        "command": "ownobjectscriptextension.addInlineComments",
-        "title": "Add Inline Comments",
         "category": "Own ObjectScript Comment"
       }
     ]
