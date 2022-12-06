@@ -56,7 +56,7 @@ Reload window after installation!
 - `Open Settings File`: Opens the `options.json` file.
 - `Toggle Save File after Command`: Toggle if the file gets saved after a Command (is off by default).
 - `Toggle Show Lines-Modified-Messages`: Toggle if a message box will be displayed after a Command (is on by default).
-- `Toggle Open SQL File`: Toggle if a sql file will be genarted after a `Own ObjectScript SQL` Command (is off by default).
+- `Toggle Open SQL File`: Toggle if a sql file will be genarted after a [`Own ObjectScript SQL`](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-sql) Command (is off by default).
 
 ### Own ObjectScript Modifier
 
