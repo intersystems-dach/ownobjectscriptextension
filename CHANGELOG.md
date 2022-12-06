@@ -2,6 +2,13 @@
 
 ---
 
+## [v0.0.5](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.5) (2022-12-6)
+
+- Command `Make Select Statement` added
+- Command `Toggle Open SQL File` added
+
+---
+
 ## [v0.0.4](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.4) (2022-12-1)
 
 - Bug fixes
