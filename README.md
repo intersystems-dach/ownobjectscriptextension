@@ -79,7 +79,7 @@ Open the *options.json* file via `Own ObjectScript Settings: Open Settings File`
 - *SaveFile*: Set if the current opend file will be saved after a command (Can also be set via `Own ObjectScript Settings: Toggle Save File after Command`).
 - *MethodCommentTemplate*: The template for the method description (See *__comment* field for further information).
 - *InLineCommentsCount*: Sets the line count between added comments for ``(Must be greater than 0).
-- *KeyWords*: Sets the keywords for `Own ObjectScript Modifier: Add Method Description Template`, so a line starting with one of those keywords will be ignored (Can be set via `Own ObjectScript Modifier: Add ObjectScript Keyword` and `Own ObjectScript Modifier: Remove ObjectScript Keyword`).
+- *KeyWords*: Sets the keywords for `Own ObjectScript Modifier: Add Method Description Template`, so a line starting with one of those keywords will be ignored (Can be set via `Own ObjectScript Modifier: Add ObjectScript Keyword` and `Own ObjectScript Modifier: Remove ObjectScript Keyword`). test
 
 <!-- ## Extension Settings
 
