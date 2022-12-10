@@ -7,6 +7,9 @@ A VSCode Extension for [InterSystems ObjectScript](https://docs.intersystems.com
 ---
 
 * [Features](https://github.com/phil1436/ownobjectscriptextension#features)
+  * [Add ObjectScript Modifier](https://github.com/phil1436/ownobjectscriptextension#add-objectscript-modifier)
+  * [Add Method Description Template](https://github.com/phil1436/ownobjectscriptextension#add-method-description-template)
+  * [Make Select Statement](https://github.com/phil1436/ownobjectscriptextension#make-select-statement)
 * [Requirements](https://github.com/phil1436/ownobjectscriptextension#requirements)
 * [Installation](https://github.com/phil1436/ownobjectscriptextension#installation)
 * [Commands](https://github.com/phil1436/ownobjectscriptextension#commands)
@@ -43,7 +46,7 @@ Generates description templates for your Methods. Just put your cursor in the Me
 
 ### `Make Select Statement`
 
-Generates a *SELECT \** statement based on the current file.
+Generates a *SELECT \** statement based on the current opened file.
 
 ![demoAddDescription](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/DemoMakeSelectStatement.gif)
 
