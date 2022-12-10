@@ -1,115 +1,115 @@
 {
-  "name": "ownobjectscriptextension",
-  "displayName": "OwnObjectscriptExtension",
-  "description": "A VSCode Extension for InterSystems ObjectScript. Adds Set, Do and Write modifier to your ObjectScript code. ",
-  "author": "Philipp B.",
-  "publisher": "Philipp B.",
-  "license": "MIT",
-  "version": "0.0.5",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/phil1436/ownobjectscriptextension"
-  },
-  "engines": {
-    "vscode": "^1.73.0"
-  },
-  "icon": "resources/logo.png",
-  "categories": [
-    "Formatters"
-  ],
-  "keywords": [
-    "IntelliSense",
-    "intersystems",
-    "objectscript",
-    "multi-root ready"
-  ],
-  "activationEvents": [
-    "onCommand:ownobjectscriptextension.addObjectScriptModifier",
-    "onCommand:ownobjectscriptextension.toggleShowMessages",
-    "onCommand:ownobjectscriptextension.toggleSaveFile",
-    "onCommand:ownobjectscriptextension.addKeyWord",
-    "onCommand:ownobjectscriptextension.removeKeyWord",
-    "onCommand:ownobjectscriptextension.showKeyWords",
-    "onCommand:ownobjectscriptextension.addMethodDescriptionTemplate",
-    "onCommand:ownobjectscriptextension.openSettings",
-    "onCommand:ownobjectscriptextension.addInlineComments",
-    "onCommand:ownobjectscriptextension.makeSelectStatement",
-    "onCommand:ownobjectscriptextension.toggleOpenSqlFile"
-  ],
-  "main": "./extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "ownobjectscriptextension.addObjectScriptModifier",
-        "title": "Add ObjectScript Modifier",
-        "category": "Own ObjectScript Modifier"
-      },
-      {
-        "command": "ownobjectscriptextension.toggleShowMessages",
-        "title": "Toggle Show Lines-Modified-Messages",
-        "category": "Own ObjectScript Settings"
-      },
-      {
-        "command": "ownobjectscriptextension.openSettings",
-        "title": "Open Settings File",
-        "category": "Own ObjectScript Settings"
-      },
-      {
-        "command": "ownobjectscriptextension.toggleSaveFile",
-        "title": "Toggle Save File after Command",
-        "category": "Own ObjectScript Settings"
-      },
-      {
-        "command": "ownobjectscriptextension.addKeyWord",
-        "title": "Add ObjectScript Keyword",
-        "category": "Own ObjectScript Modifier"
-      },
-      {
-        "command": "ownobjectscriptextension.removeKeyWord",
-        "title": "Remove ObjectScript Keyword",
-        "category": "Own ObjectScript Modifier"
-      },
-      {
-        "command": "ownobjectscriptextension.showKeyWords",
-        "title": "Show ObjectScript Keywords",
-        "category": "Own ObjectScript Modifier"
-      },
-      {
-        "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
-        "title": "Add Method Description Template",
-        "category": "Own ObjectScript Comment"
-      },
-      {
-        "command": "ownobjectscriptextension.addInlineComments",
-        "title": "Add Inline Comments",
-        "category": "Own ObjectScript Comment"
-      },
-      {
-        "command": "ownobjectscriptextension.makeSelectStatement",
-        "title": "Make Select Statement",
-        "category": "Own ObjectScript SQL"
-      },
-      {
-        "command": "ownobjectscriptextension.toggleOpenSqlFile",
-        "title": "Toggle Open SQL File",
-        "category": "Own ObjectScript Settings"
-      }
-    ]
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "node ./test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.73.0",
-    "@types/glob": "^8.0.0",
-    "@types/mocha": "^10.0.0",
-    "@types/node": "16.x",
-    "eslint": "^8.26.0",
-    "glob": "^8.0.3",
-    "mocha": "^10.1.0",
-    "typescript": "^4.8.4",
-    "@vscode/test-electron": "^2.2.0"
-  }
+   "name": "ownobjectscriptextension",
+   "displayName": "OwnObjectscriptExtension",
+   "description": "A VSCode Extension for InterSystems ObjectScript. Adds Set, Do and Write modifier to your ObjectScript code. ",
+   "author": "Philipp B.",
+   "publisher": "Philipp B.",
+   "license": "MIT",
+   "version": "0.0.6",
+   "repository": {
+      "type": "github",
+      "url": "https://github.com/phil1436/ownobjectscriptextension"
+   },
+   "engines": {
+      "vscode": "^1.73.0"
+   },
+   "icon": "resources/logo.png",
+   "categories": [
+      "Formatters"
+   ],
+   "keywords": [
+      "IntelliSense",
+      "intersystems",
+      "objectscript",
+      "multi-root ready"
+   ],
+   "activationEvents": [
+      "onCommand:ownobjectscriptextension.addObjectScriptModifier",
+      "onCommand:ownobjectscriptextension.toggleShowMessages",
+      "onCommand:ownobjectscriptextension.toggleSaveFile",
+      "onCommand:ownobjectscriptextension.addKeyWord",
+      "onCommand:ownobjectscriptextension.removeKeyWord",
+      "onCommand:ownobjectscriptextension.showKeyWords",
+      "onCommand:ownobjectscriptextension.addMethodDescriptionTemplate",
+      "onCommand:ownobjectscriptextension.openSettings",
+      "onCommand:ownobjectscriptextension.addInlineComments",
+      "onCommand:ownobjectscriptextension.makeSelectStatement",
+      "onCommand:ownobjectscriptextension.toggleOpenSqlFile"
+   ],
+   "main": "./extension.js",
+   "contributes": {
+      "commands": [
+         {
+            "command": "ownobjectscriptextension.toggleShowMessages",
+            "title": "Toggle Show Lines-Modified-Messages",
+            "category": "Own ObjectScript Options"
+         },
+         {
+            "command": "ownobjectscriptextension.openSettings",
+            "title": "Open Options File",
+            "category": "Own ObjectScript Options"
+         },
+         {
+            "command": "ownobjectscriptextension.toggleSaveFile",
+            "title": "Toggle Save File after Command",
+            "category": "Own ObjectScript Options"
+         },
+         {
+            "command": "ownobjectscriptextension.toggleOpenSqlFile",
+            "title": "Toggle Open SQL File",
+            "category": "Own ObjectScript Options"
+         },
+         {
+            "command": "ownobjectscriptextension.addObjectScriptModifier",
+            "title": "Add ObjectScript Modifier",
+            "category": "Own ObjectScript Modifier"
+         },
+         {
+            "command": "ownobjectscriptextension.addKeyWord",
+            "title": "Add ObjectScript Keyword",
+            "category": "Own ObjectScript Modifier"
+         },
+         {
+            "command": "ownobjectscriptextension.removeKeyWord",
+            "title": "Remove ObjectScript Keyword",
+            "category": "Own ObjectScript Modifier"
+         },
+         {
+            "command": "ownobjectscriptextension.showKeyWords",
+            "title": "Show ObjectScript Keywords",
+            "category": "Own ObjectScript Modifier"
+         },
+         {
+            "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
+            "title": "Add Method Description Template",
+            "category": "Own ObjectScript Comment"
+         },
+         {
+            "command": "ownobjectscriptextension.addInlineComments",
+            "title": "Add Inline Comments",
+            "category": "Own ObjectScript Comment"
+         },
+         {
+            "command": "ownobjectscriptextension.makeSelectStatement",
+            "title": "Make Select Statement",
+            "category": "Own ObjectScript SQL"
+         }
+      ]
+   },
+   "scripts": {
+      "lint": "eslint .",
+      "pretest": "npm run lint",
+      "test": "node ./test/runTest.js"
+   },
+   "devDependencies": {
+      "@types/vscode": "^1.73.0",
+      "@types/glob": "^8.0.0",
+      "@types/mocha": "^10.0.0",
+      "@types/node": "16.x",
+      "eslint": "^8.26.0",
+      "glob": "^8.0.3",
+      "mocha": "^10.1.0",
+      "typescript": "^4.8.4",
+      "@vscode/test-electron": "^2.2.0"
+   }
 }
