@@ -62,13 +62,13 @@ The [InterSystems ObjectScript Extension](https://intersystems-community.github.
 
 ## Installation
 
-Open a VSCode window and then clone this repository under `~/.vscode/extensions`.
+Clone this repository (recommended under `~/.vscode/extensions`)
 
 ````shell
 git clone https://github.com/phil1436/ownobjectscriptextension C:\Users\<your-user>\.vscode\extensions\ownobjectscriptextension
 ````
 
-Reload window after installation!
+Then run the command `Developer: Install Extension from Location...` and choose the cloned repository.
 
 ---
 
