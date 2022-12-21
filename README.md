@@ -17,6 +17,7 @@ A VSCode Extension for [InterSystems ObjectScript](https://docs.intersystems.com
   * [Own ObjectScript Modifier](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-modifier)
   * [Own ObjectScript Comment](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-comment)
   * [Own ObjectScript SQL](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-sql)
+  * [Own ObjectScript Translate](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-translate)
 * [Options](https://github.com/phil1436/ownobjectscriptextension#options)
 * [Bugs](https://github.com/phil1436/ownobjectscriptextension#bugs)
 * [Release Notes](https://github.com/phil1436/ownobjectscriptextension#release-notes)
@@ -48,9 +49,15 @@ Generates description templates for your Methods. Just put your cursor in the Me
 
 Generates a *SELECT \** statement based on the current opened file.
 
-![demoAddDescription](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/DemoMakeSelectStatement.gif)
+![demoMakeSelectStatement](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/DemoMakeSelectStatement.gif)
 
 > Tip: Install the [SQLTools](https://github.com/mtxr/vscode-sqltools) extension to execute the statement directly in VSCode.
+
+### `Translate Embedded Python`
+
+Translate an ObjectSCript Method to embedded python.
+
+![demoTranslateEmbeddedPython](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoTranslateEmbeddedPython.gif)
 
 ---
 
@@ -99,6 +106,10 @@ Then run the command `Developer: Install Extension from Location...` and choose 
 
 * `Make Select Statement`: Copies a SQL-Select-Statement based on the currently opened file to the clipboard. If *OpenSQLFile* is enabled a sql file will be generated.
 
+### Own ObjectScript Translate
+
+* `Translate Embedded Python`: Translates an Objectscript Method to embedded python.
+
 ---
 
 ## Options
@@ -135,6 +146,10 @@ Calling out known issues can help limit users opening duplicate issues against y
 ---
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
+
+## [v0.0.7](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.7)
+
+* Commands added
 
 ## [v0.0.6](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.6)
 
