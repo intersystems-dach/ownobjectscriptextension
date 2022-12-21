@@ -5,7 +5,7 @@
    "author": "Philipp B.",
    "publisher": "Philipp B.",
    "license": "MIT",
-   "version": "0.0.6",
+   "version": "0.0.7",
    "repository": {
       "type": "github",
       "url": "https://github.com/phil1436/ownobjectscriptextension"
@@ -34,7 +34,8 @@
       "onCommand:ownobjectscriptextension.openSettings",
       "onCommand:ownobjectscriptextension.addInlineComments",
       "onCommand:ownobjectscriptextension.makeSelectStatement",
-      "onCommand:ownobjectscriptextension.toggleOpenSqlFile"
+      "onCommand:ownobjectscriptextension.toggleOpenSqlFile",
+      "onCommand:ownobjectscriptextension.translateEmbPython"
    ],
    "main": "./extension.js",
    "contributes": {
@@ -93,6 +94,11 @@
             "command": "ownobjectscriptextension.makeSelectStatement",
             "title": "Make Select Statement",
             "category": "Own ObjectScript SQL"
+         },
+         {
+            "command": "ownobjectscriptextension.translateEmbPython",
+            "title": "Translate Embedded Python",
+            "category": "Own ObjectScript Translate"
          }
       ]
    },

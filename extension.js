@@ -458,11 +458,146 @@ function activate(context) {
       }
    );
 
+   //make select statement
+   vscode.commands.registerCommand(
+      'ownobjectscriptextension.translateEmbPython',
+      function () {
+         if (!preConditions()) return;
+
+         let startLineIndex = undefined;
+         let isPython = false;
+
+         // Find method
+         for (
+            let i = vscode.window.activeTextEditor.selection.start.line;
+            i >= 0;
+            i--
+         ) {
+            let line = vscode.window.activeTextEditor.document.lineAt(i);
+            let trimedLine = line.text.toLowerCase().replace(/\s/g, '');
+            if (
+               trimedLine.startsWith('method') ||
+               trimedLine.startsWith('classmethod')
+            ) {
+               let offset = 0;
+               let lineString = trimedLine;
+               while (!lineString.includes('{')) {
+                  lineString += vscode.window.activeTextEditor.document
+                     .lineAt(i + offset + 1)
+                     .text.toLowerCase()
+                     .replace(/\s/g, '');
+                  offset++;
+               }
+               if (lineString.includes('language=python')) isPython = true;
+               //console.log(lineString);
+               startLineIndex = i + offset;
+               break;
+            }
+         }
+
+         if (startLineIndex == undefined) {
+            vscode.window.showErrorMessage('No method found!');
+            return;
+         }
+         if (isPython) {
+            vscode.window.showErrorMessage(
+               'Cannot convert from embedded python to objetscript!'
+            );
+            return;
+         }
+         if (startLineIndex == undefined) {
+            vscode.window.showErrorMessage('No method found!');
+            return;
+         }
+
+         let endLineIndex = skipUnitlToken(startLineIndex, '{', '}');
+
+         vscode.window.activeTextEditor.edit(function (editBuilder) {
+            editBuilder.insert(
+               new vscode.Position(startLineIndex, 0),
+               '[Language = Python]\n'
+            );
+            editBuilder.insert(
+               new vscode.Position(startLineIndex + 1, 0),
+               '    import iris\n'
+            );
+            for (let i = startLineIndex + 1; i < endLineIndex; i++) {
+               console.log(
+                  vscode.window.activeTextEditor.document.lineAt(i).text
+               );
+               let newLine = convertObjectscriptToPython(
+                  vscode.window.activeTextEditor.document.lineAt(i).text
+               );
+               editBuilder.replace(
+                  vscode.window.activeTextEditor.document.lineAt(i).range,
+                  newLine
+               );
+            }
+         });
+
+         //Save if option is turned on
+         if (optionsJSON['SaveFile'])
+            vscode.window.activeTextEditor.document.save();
+      }
+   );
+
    context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated
 function deactivate() {}
+
+function convertObjectscriptToPython(line) {
+   line = ownReplaceAll(line, '##class', '__class');
+   line = ownReplaceAll(line, '//', '#');
+
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('set')) {
+      line = line.replace(/set /i, '');
+   }
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('do')) {
+      line = line.replace(/do /i, '');
+   }
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('write')) {
+      line = line.replace(/write/i, 'print(');
+      line += ')';
+      line = line.replace(/!/g, '"\\n"');
+      line = line.replace(/_/g, ' + ');
+   }
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('#dim')) {
+      line = line.replace(/#dim /i, '');
+   }
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('return')) {
+      line = line.replace(/return/i, 'return');
+   }
+   let isCondition = false;
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('if')) {
+      line = line.replace(/if/i, 'if');
+      isCondition = true;
+   }
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('else')) {
+      line = line.replace(/else/i, 'else');
+      isCondition = true;
+   }
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('elseif')) {
+      line = line.replace(/elseif/i, 'elif');
+      isCondition = true;
+   }
+   if (line.toLowerCase().replace(/\s/g, '').startsWith('while')) {
+      line = line.replace(/while/i, 'while');
+      isCondition = true;
+   }
+
+   if (isCondition) {
+      line = line.replace(/=/g, '==');
+      line = line.replace(/'==/g, '!=');
+   }
+
+   line = line.replace(/\$\$\$ok/gi, '1');
+   line = line.replace(/%/g, '_');
+   line = line.replace(/{/g, ':');
+   line = line.replace(/}/g, '');
+   return line;
+}
 
 /**
  * @param {string} s
