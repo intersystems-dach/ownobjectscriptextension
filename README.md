@@ -10,6 +10,7 @@ A VSCode Extension for [InterSystems ObjectScript](https://docs.intersystems.com
   * [Add ObjectScript Modifier](https://github.com/phil1436/ownobjectscriptextension#add-objectscript-modifier)
   * [Add Method Description Template](https://github.com/phil1436/ownobjectscriptextension#add-method-description-template)
   * [Make Select Statement](https://github.com/phil1436/ownobjectscriptextension#make-select-statement)
+  * [Translate Embedded Python](https://github.com/phil1436/ownobjectscriptextension#translate-embedded-python)
 * [Requirements](https://github.com/phil1436/ownobjectscriptextension#requirements)
 * [Installation](https://github.com/phil1436/ownobjectscriptextension#installation)
 * [Commands](https://github.com/phil1436/ownobjectscriptextension#commands)
@@ -146,6 +147,10 @@ Calling out known issues can help limit users opening duplicate issues against y
 ---
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
+
+## [v0.0.8](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.8)
+
+* Bug fixes
 
 ## [v0.0.7](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.7)
 
