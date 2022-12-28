@@ -9,3 +9,4 @@ vsc-extension-quickstart.md
 node_modules/**
 desktop.ini
 ideas.txt
+*.vsix

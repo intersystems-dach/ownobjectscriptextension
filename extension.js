@@ -458,7 +458,7 @@ function activate(context) {
       }
    );
 
-   //make select statement
+   //translate embedded python
    vscode.commands.registerCommand(
       'ownobjectscriptextension.translateEmbPython',
       function () {
@@ -466,6 +466,7 @@ function activate(context) {
 
          let startLineIndex = undefined;
          let isPython = false;
+         let methodAttributes = undefined;
 
          // Find method
          for (
@@ -480,16 +481,23 @@ function activate(context) {
                trimedLine.startsWith('classmethod')
             ) {
                let offset = 0;
-               let lineString = trimedLine;
+               let lineString = line.text;
                while (!lineString.includes('{')) {
-                  lineString += vscode.window.activeTextEditor.document
-                     .lineAt(i + offset + 1)
-                     .text.toLowerCase()
-                     .replace(/\s/g, '');
+                  lineString += vscode.window.activeTextEditor.document.lineAt(
+                     i + offset + 1
+                  ).text;
                   offset++;
                }
-               if (lineString.includes('language=python')) isPython = true;
-               //console.log(lineString);
+               if (
+                  lineString
+                     .toLowerCase()
+                     .replace(/\s/g, '')
+                     .includes('language=python')
+               )
+                  isPython = true;
+               if (lineString.includes('[')) {
+                  methodAttributes = lineString.split('[')[1].split(']')[0];
+               }
                startLineIndex = i + offset;
                break;
             }
@@ -505,26 +513,60 @@ function activate(context) {
             );
             return;
          }
-         if (startLineIndex == undefined) {
-            vscode.window.showErrorMessage('No method found!');
-            return;
-         }
 
          let endLineIndex = skipUnitlToken(startLineIndex, '{', '}');
 
          vscode.window.activeTextEditor.edit(function (editBuilder) {
-            editBuilder.insert(
-               new vscode.Position(startLineIndex, 0),
-               '[Language = Python]\n'
-            );
+            // add language = python
+            if (methodAttributes == undefined)
+               editBuilder.insert(
+                  new vscode.Position(startLineIndex, 0),
+                  '[Language = Python]\n'
+               );
+            else {
+               let t =
+                  vscode.window.activeTextEditor.document.lineAt(
+                     startLineIndex
+                  ).text;
+               let offset = 0;
+               while (!t.includes('[')) {
+                  t = vscode.window.activeTextEditor.document.lineAt(
+                     startLineIndex - offset - 1
+                  ).text;
+                  offset++;
+               }
+               let range = new vscode.Range(
+                  new vscode.Position(startLineIndex - offset, t.indexOf('[')),
+                  new vscode.Position(
+                     startLineIndex - offset,
+                     t.indexOf(']') + 1
+                  )
+               );
+               if (
+                  methodAttributes
+                     .toLowerCase()
+                     .replace(/\s/g, '')
+                     .includes('language=objectscript')
+               ) {
+                  methodAttributes = methodAttributes.replace(
+                     /\,*language\s*=\s*objectscript\,*/i,
+                     ''
+                  );
+               }
+               editBuilder.replace(
+                  range,
+                  '[' + methodAttributes + ', Language = Python]'
+               );
+            }
+
+            //add import iris
             editBuilder.insert(
                new vscode.Position(startLineIndex + 1, 0),
                '    import iris\n'
             );
+
+            //translate
             for (let i = startLineIndex + 1; i < endLineIndex; i++) {
-               console.log(
-                  vscode.window.activeTextEditor.document.lineAt(i).text
-               );
                let newLine = convertObjectscriptToPython(
                   vscode.window.activeTextEditor.document.lineAt(i).text
                );
@@ -541,61 +583,164 @@ function activate(context) {
       }
    );
 
+   //create new class
+   vscode.commands.registerCommand(
+      'ownobjectscriptextension.createNewClass',
+      async function () {
+         let kind = undefined;
+         await vscode.window
+            .showQuickPick(['Class', 'Business Service', 'Business Operation'])
+            .then(
+               (value) => {
+                  kind = value;
+               },
+               (reason) => {
+                  vscode.window.showErrorMessage(
+                     'Something went wrong:' + reason
+                  );
+               }
+            );
+         let className = await vscode.window.showInputBox({
+            placeHolder: 'Class Name',
+         });
+         let packageName = await vscode.window.showInputBox({
+            placeHolder: 'Package',
+         });
+         vscode.window.showInformationMessage(
+            kind + ':' + packageName + '.' + className
+         );
+         if (kind == 'Class') {
+            let text = '//' + className + '\n';
+            text += 'Class ' + packageName + '.' + className + '{ \n\n}';
+            vscode.workspace
+               .openTextDocument({
+                  language: 'objectscript-class',
+                  content: text,
+               })
+               .then((a) => {
+                  vscode.window.showTextDocument(a, 1, false);
+                  vscode.window.activeTextEditor.document.save();
+               });
+         }
+         //vscode.window.showWorkspaceFolderPick().then(folder=>{folder.});
+         /* vscode.workspace
+            .openTextDocument({
+               language: 'objectscript-class',
+               content: '///Test2\nClass VSCodeExtension.Test2{}',
+            })
+            .then((a) => {
+               vscode.window.showTextDocument(a, 1, false);
+            }); */
+      }
+   );
+
    context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated
 function deactivate() {}
 
+/**
+ * Converts a line from objectscript to python
+ * @param {string} line the line to convert
+ */
 function convertObjectscriptToPython(line) {
-   line = ownReplaceAll(line, '##class', '__class');
+   let trimmedLine = line.toLowerCase().replace(/\s/g, '');
+   //##class to __class
+   line = ownReplaceAll(line, '##class', 'iris.cls');
+   //comments
    line = ownReplaceAll(line, '//', '#');
+   //_ to +
+   line = line.replace(/_/g, ' + ');
 
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('set')) {
-      line = line.replace(/set /i, '');
+   //remove set
+   if (trimmedLine.startsWith('set')) {
+      line = line.replace(/set\s*/i, '');
    }
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('do')) {
-      line = line.replace(/do /i, '');
+   //remove do
+   if (trimmedLine.startsWith('do')) {
+      line = line.replace(/do\s*/i, '');
    }
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('write')) {
-      line = line.replace(/write/i, 'print(');
+   //write to print
+   if (trimmedLine.startsWith('write')) {
+      line = line.replace(/write\s*/i, 'print(');
       line += ')';
       line = line.replace(/!/g, '"\\n"');
-      line = line.replace(/_/g, ' + ');
    }
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('#dim')) {
-      line = line.replace(/#dim /i, '');
+   //remove #dim
+   if (trimmedLine.startsWith('#dim')) {
+      line = line.replace(/#dim\s*/i, '');
    }
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('return')) {
+   //make lowercase return
+   if (trimmedLine.startsWith('return')) {
       line = line.replace(/return/i, 'return');
    }
+
    let isCondition = false;
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('if')) {
+   // if
+   if (trimmedLine.startsWith('if')) {
       line = line.replace(/if/i, 'if');
       isCondition = true;
    }
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('else')) {
+   //else
+   if (trimmedLine.startsWith('else')) {
       line = line.replace(/else/i, 'else');
       isCondition = true;
    }
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('elseif')) {
+   //elseif
+   if (trimmedLine.startsWith('elseif')) {
       line = line.replace(/elseif/i, 'elif');
       isCondition = true;
    }
-   if (line.toLowerCase().replace(/\s/g, '').startsWith('while')) {
+   //while
+   if (trimmedLine.startsWith('while')) {
       line = line.replace(/while/i, 'while');
       isCondition = true;
    }
-
+   //if condition convert = to == and '= to !=
    if (isCondition) {
       line = line.replace(/=/g, '==');
       line = line.replace(/'==/g, '!=');
    }
 
+   //$$$OK to 1
    line = line.replace(/\$\$\$ok/gi, '1');
+   //% to _
    line = line.replace(/%/g, '_');
+   //{ to :
    line = line.replace(/{/g, ':');
+   //remove }
    line = line.replace(/}/g, '');
+   //this
+   line = line.replace(/\.\./g, 'self.');
+
+   //Byref
+   //line = line.replace(/\s\./g, 'iris.ref(');
+
+   //$FIND to find()
+   if (trimmedLine.includes('$f')) {
+      line = line.replace(/\$f/gi, '$F');
+      line = line.replace(/\$find/gi, '$F');
+      let firstParam = line.split('$F')[1].split('(')[1].split(',')[0];
+      line = line.replace('$F(' + firstParam + ',', firstParam + '.find(');
+   }
+   //$PIECE to split()
+   if (trimmedLine.includes('$p')) {
+      line = line.replace(/\$p/gi, '$P');
+      line = line.replace(/\$piece/gi, '$P');
+      let firstParam = line.split('$P')[1].split('(')[1].split(',')[0];
+      line = line.replace('$P(' + firstParam + ',', firstParam + '.split(');
+   }
+   //$REPLACE to replace()
+   if (trimmedLine.includes('$replace')) {
+      line = line.replace(/\$replace/gi, '$REPLACE');
+      let firstParam = line.split('$REPLACE')[1].split('(')[1].split(',')[0];
+      line = line.replace(
+         '$REPLACE(' + firstParam + ',',
+         firstParam + '.replace('
+      );
+   }
+
    return line;
 }
 
@@ -722,7 +867,7 @@ function addModifier(line, firstIndex) {
 }
 
 /**
- *
+ *Save the options file
  */
 function saveOptions() {
    fs.writeFileSync(optionsFile, JSON.stringify(optionsJSON, null, 2));
