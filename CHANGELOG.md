@@ -2,6 +2,12 @@
 
 ---
 
+## [v0.0.8](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.8) (2022-12-28)
+
+* Bug fixes
+
+---
+
 ## [v0.0.7](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.7) (2022-12-21)
 
 * Command `Translate Embedded Python` added
