@@ -2,10 +2,18 @@ const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
 
-const optionsFile = path.join(__dirname, 'options.json');
-let optionsJSON = JSON.parse(fs.readFileSync(optionsFile).toString());
+//keywords
+const keywordsFile = path.join(__dirname, 'Keywords.json');
+let keyWords = JSON.parse(fs.readFileSync(keywordsFile).toString());
 
-const keyWords = optionsJSON['KeyWords'];
+//Method template
+const methodTemplateFile = path.join(
+   __dirname,
+   'MethodDescriptionTemplate.json'
+);
+let methodTemplateJSON = JSON.parse(
+   fs.readFileSync(methodTemplateFile).toString()
+);
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -50,7 +58,12 @@ function activate(context) {
                }
             }
 
-            if (!optionsJSON['ShowMessages']) return;
+            if (
+               !vscode.workspace
+                  .getConfiguration('ownobjectscriptextension')
+                  .get('ShowMessages')
+            )
+               return;
             // Show message
             if (modifiedLines.length == 0)
                vscode.window.showInformationMessage('No lines modified!');
@@ -64,46 +77,12 @@ function activate(context) {
                );
             }
          });
-         if (optionsJSON['SaveFile'])
+         if (
+            vscode.workspace
+               .getConfiguration('ownobjectscriptextension')
+               .get('SaveFile')
+         )
             vscode.window.activeTextEditor.document.save();
-      }
-   );
-
-   //toggle show message
-   vscode.commands.registerCommand(
-      'ownobjectscriptextension.toggleShowMessages',
-      function () {
-         optionsJSON['ShowMessages'] = !optionsJSON['ShowMessages'];
-         vscode.window.setStatusBarMessage(
-            'Show Message: ' + (optionsJSON['ShowMessages'] ? 'ON' : 'OFF'),
-            4000
-         );
-         saveOptions();
-      }
-   );
-   //toggle OpenSQLFile
-   vscode.commands.registerCommand(
-      'ownobjectscriptextension.toggleOpenSqlFile',
-      function () {
-         optionsJSON['OpenSQLFile'] = !optionsJSON['OpenSQLFile'];
-         vscode.window.setStatusBarMessage(
-            'Open SQL File: ' + (optionsJSON['OpenSQLFile'] ? 'ON' : 'OFF'),
-            4000
-         );
-         saveOptions();
-      }
-   );
-
-   //toggle save file
-   vscode.commands.registerCommand(
-      'ownobjectscriptextension.toggleSaveFile',
-      function () {
-         optionsJSON['SaveFile'] = !optionsJSON['SaveFile'];
-         vscode.window.setStatusBarMessage(
-            'Save file: ' + (optionsJSON['SaveFile'] ? 'ON' : 'OFF'),
-            4000
-         );
-         saveOptions();
       }
    );
 
@@ -119,7 +98,8 @@ function activate(context) {
             let valueTrimmed = value.toLowerCase().replace(/\s/g, '');
             if (keyWords.includes(valueTrimmed)) return;
             keyWords.push(valueTrimmed);
-            saveOptions();
+            fs.writeFileSync(keywordsFile, JSON.stringify(keyWords, null, 2));
+
             vscode.window.setStatusBarMessage(
                'KeyWord "' + value + '" added',
                4000
@@ -148,7 +128,7 @@ function activate(context) {
             if (index > -1) {
                keyWords.splice(index, 1); // 2nd parameter means remove one item only
             }
-            saveOptions();
+            fs.writeFileSync(keywordsFile, JSON.stringify(keyWords, null, 2));
             vscode.window.setStatusBarMessage(
                'KeyWord "' + value + '" removed',
                4000
@@ -175,19 +155,6 @@ function activate(context) {
                      'ownobjectscriptextension.removeKeyWord'
                   );
                }
-               console.log(item);
-            });
-      }
-   );
-
-   //open settings
-   vscode.commands.registerCommand(
-      'ownobjectscriptextension.openSettings',
-      function () {
-         vscode.workspace
-            .openTextDocument(vscode.Uri.file(optionsFile))
-            .then((a) => {
-               vscode.window.showTextDocument(a, 1, false);
             });
       }
    );
@@ -258,13 +225,9 @@ function activate(context) {
          let template = '';
 
          //Add method description
-         for (let i in optionsJSON['MethodCommentTemplate'][
-            'MethodDescription'
-         ]) {
+         for (let i in methodTemplateJSON['MethodDescription']) {
             template +=
-               '/// ' +
-               optionsJSON['MethodCommentTemplate']['MethodDescription'][i] +
-               '\n';
+               '/// ' + methodTemplateJSON['MethodDescription'][i] + '\n';
          }
 
          // add paremeter description
@@ -273,35 +236,21 @@ function activate(context) {
          //if has return value
          if (startLine.split(')')[1].toLowerCase().includes('as')) {
             // Add return description
-            for (let i in optionsJSON['MethodCommentTemplate'][
-               'ReturnDescription'
-            ]) {
+            for (let i in methodTemplateJSON['ReturnDescription']) {
                template +=
-                  '/// ' +
-                  optionsJSON['MethodCommentTemplate']['ReturnDescription'][i] +
-                  '\n';
+                  '/// ' + methodTemplateJSON['ReturnDescription'][i] + '\n';
             }
          }
          // Add example
          if (startLine.toLowerCase().includes('classmethod')) {
-            for (let i in optionsJSON['MethodCommentTemplate'][
-               'ExampleClassMethod'
-            ]) {
+            for (let i in methodTemplateJSON['ExampleClassMethod']) {
                template +=
-                  '/// ' +
-                  optionsJSON['MethodCommentTemplate']['ExampleClassMethod'][
-                     i
-                  ] +
-                  '\n';
+                  '/// ' + methodTemplateJSON['ExampleClassMethod'][i] + '\n';
             }
          } else {
-            for (let i in optionsJSON['MethodCommentTemplate'][
-               'ExampleMethod'
-            ]) {
+            for (let i in methodTemplateJSON['ExampleMethod']) {
                template +=
-                  '/// ' +
-                  optionsJSON['MethodCommentTemplate']['ExampleMethod'][i] +
-                  '\n';
+                  '/// ' + methodTemplateJSON['ExampleMethod'][i] + '\n';
             }
          }
 
@@ -328,7 +277,11 @@ function activate(context) {
          });
 
          //Save if option is turned on
-         if (optionsJSON['SaveFile'])
+         if (
+            vscode.workspace
+               .getConfiguration('ownobjectscriptextension')
+               .get('SaveFile')
+         )
             vscode.window.activeTextEditor.document.save();
       }
    );
@@ -338,13 +291,10 @@ function activate(context) {
       'ownobjectscriptextension.addInlineComments',
       function () {
          if (!preConditions()) return;
-         let inlineCount = optionsJSON['InLineCommentsCount'];
-         if (inlineCount <= 0) {
-            vscode.window.showErrorMessage(
-               'InLineCommentsCount must be grater than 0'
-            );
-            return;
-         }
+         let inlineCount = vscode.workspace
+            .getConfiguration('ownobjectscriptextension.comment')
+            .get('InLineCommentCount');
+
          let endIndex = undefined;
          let startIndex = undefined;
          // Find method
@@ -413,7 +363,11 @@ function activate(context) {
             }
          });
          //Save if option is turned on
-         if (optionsJSON['SaveFile'])
+         if (
+            vscode.workspace
+               .getConfiguration('ownobjectscriptextension')
+               .get('SaveFile')
+         )
             vscode.window.activeTextEditor.document.save();
       }
    );
@@ -448,7 +402,11 @@ function activate(context) {
          //Copy to clipboard
          vscode.env.clipboard.writeText(selectStmt);
 
-         if (optionsJSON['OpenSQLFile']) {
+         if (
+            vscode.workspace
+               .getConfiguration('ownobjectscriptextension.sql')
+               .get('OpenSQLFile')
+         ) {
             vscode.workspace
                .openTextDocument({ language: 'sql', content: selectStmt })
                .then((a) => {
@@ -578,8 +536,24 @@ function activate(context) {
          });
 
          //Save if option is turned on
-         if (optionsJSON['SaveFile'])
+         if (
+            vscode.workspace
+               .getConfiguration('ownobjectscriptextension')
+               .get('SaveFile')
+         )
             vscode.window.activeTextEditor.document.save();
+      }
+   );
+
+   //open method template file
+   vscode.commands.registerCommand(
+      'ownobjectscriptextension.editMethodDescriptionTemplate',
+      function () {
+         vscode.workspace
+            .openTextDocument(vscode.Uri.file(methodTemplateFile))
+            .then((a) => {
+               vscode.window.showTextDocument(a, 1, false);
+            });
       }
    );
 
@@ -775,11 +749,8 @@ function makeParemterTemplate(startLine) {
          name = parameterArray[i].split(' ')[1];
       if (name != '') {
          let isOptional = parameterArray[i].includes('=') ? true : false;
-         for (let j in optionsJSON['MethodCommentTemplate'][
-            'ParameterDescription'
-         ]) {
-            let temp =
-               optionsJSON['MethodCommentTemplate']['ParameterDescription'][j];
+         for (let j in methodTemplateJSON['ParameterDescription']) {
+            let temp = methodTemplateJSON['ParameterDescription'][j];
             temp = ownReplaceAll(temp, '*parametername*', name);
             temp = ownReplaceAll(
                temp,
@@ -864,13 +835,6 @@ function addModifier(line, firstIndex) {
       return line.slice(0, firstIndex) + 'Write ' + line.slice(firstIndex);
    }
    return line.slice(0, firstIndex) + 'Do ' + line.slice(firstIndex);
-}
-
-/**
- *Save the options file
- */
-function saveOptions() {
-   fs.writeFileSync(optionsFile, JSON.stringify(optionsJSON, null, 2));
 }
 
 module.exports = {

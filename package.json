@@ -5,7 +5,7 @@
    "author": "Philipp B.",
    "publisher": "Philipp B.",
    "license": "MIT",
-   "version": "0.0.8",
+   "version": "0.0.9",
    "repository": {
       "type": "github",
       "url": "https://github.com/phil1436/ownobjectscriptextension"
@@ -25,41 +25,18 @@
    ],
    "activationEvents": [
       "onCommand:ownobjectscriptextension.addObjectScriptModifier",
-      "onCommand:ownobjectscriptextension.toggleShowMessages",
-      "onCommand:ownobjectscriptextension.toggleSaveFile",
       "onCommand:ownobjectscriptextension.addKeyWord",
       "onCommand:ownobjectscriptextension.removeKeyWord",
       "onCommand:ownobjectscriptextension.showKeyWords",
       "onCommand:ownobjectscriptextension.addMethodDescriptionTemplate",
-      "onCommand:ownobjectscriptextension.openSettings",
       "onCommand:ownobjectscriptextension.addInlineComments",
       "onCommand:ownobjectscriptextension.makeSelectStatement",
-      "onCommand:ownobjectscriptextension.toggleOpenSqlFile",
-      "onCommand:ownobjectscriptextension.translateEmbPython"
+      "onCommand:ownobjectscriptextension.translateEmbPython",
+      "onCommand:ownobjectscriptextension.editMethodDescriptionTemplate"
    ],
    "main": "./extension.js",
    "contributes": {
       "commands": [
-         {
-            "command": "ownobjectscriptextension.toggleShowMessages",
-            "title": "Toggle Show Lines-Modified-Messages",
-            "category": "Own ObjectScript Options"
-         },
-         {
-            "command": "ownobjectscriptextension.openSettings",
-            "title": "Open Options File",
-            "category": "Own ObjectScript Options"
-         },
-         {
-            "command": "ownobjectscriptextension.toggleSaveFile",
-            "title": "Toggle Save File after Command",
-            "category": "Own ObjectScript Options"
-         },
-         {
-            "command": "ownobjectscriptextension.toggleOpenSqlFile",
-            "title": "Toggle Open SQL File",
-            "category": "Own ObjectScript Options"
-         },
          {
             "command": "ownobjectscriptextension.addObjectScriptModifier",
             "title": "Add ObjectScript Modifier",
@@ -86,6 +63,11 @@
             "category": "Own ObjectScript Comment"
          },
          {
+            "command": "ownobjectscriptextension.editMethodDescriptionTemplate",
+            "title": "Edit Method Description Template",
+            "category": "Own ObjectScript Comment"
+         },
+         {
             "command": "ownobjectscriptextension.addInlineComments",
             "title": "Add Inline Comments",
             "category": "Own ObjectScript Comment"
@@ -100,7 +82,33 @@
             "title": "Translate Embedded Python",
             "category": "Own ObjectScript Translate"
          }
-      ]
+      ],
+      "configuration": {
+         "title": "OwnObjectscriptExtension",
+         "properties": {
+            "ownobjectscriptextension.SaveFile": {
+               "type": "boolean",
+               "default": false,
+               "markdownDescription": "If enabled saves a file after executing command."
+            },
+            "ownobjectscriptextension.ShowMessages": {
+               "type": "boolean",
+               "default": true,
+               "markdownDescription": "If enabled prompts information messages."
+            },
+            "ownobjectscriptextension.sql.OpenSQLFile": {
+               "type": "boolean",
+               "default": false,
+               "markdownDescription": "If enabled a .sql file will be generated after `Own ObjectScript SQL: Make Select Statement`."
+            },
+            "ownobjectscriptextension.comment.InLineCommentCount": {
+               "type": "number",
+               "default": 5,
+               "minimum": 1,
+               "markdownDescription": "Sets the line count between added comments for `Own ObjectScript Comment: Add Inline Comments`"
+            }
+         }
+      }
    },
    "scripts": {
       "lint": "eslint .",
