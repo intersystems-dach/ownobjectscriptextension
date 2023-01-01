@@ -2,6 +2,19 @@
 
 ---
 
+## [v0.0.9](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.9) (2023-1-1)
+
+* Insert Configurations
+* Command `Edit Method Description Template` added
+* *MethodDescriptionTemplate.json* added
+* *Keywords.json* added
+* Command `Toggle Show Lines-Modified-Messages` removed
+* Command `Toggle Save File after Command` removed
+* Command `Toggle Open SQL File` removed
+* Command `Open Options File` removed
+
+---
+
 ## [v0.0.8](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.8) (2022-12-28)
 
 * Bug fixes
