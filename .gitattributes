@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.gif export-ignore
+.git* export-ignore
+resources/demoAddDescriptionClassReference.png export-ignore
