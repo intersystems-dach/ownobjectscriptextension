@@ -8,5 +8,5 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 node_modules/**
 desktop.ini
-ideas.txt
+ideas.md
 *.vsix
