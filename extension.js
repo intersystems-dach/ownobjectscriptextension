@@ -2,18 +2,67 @@ const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
 
+//workspace path
+const workspacePath = path.join(
+   __dirname,
+   '../',
+   'ownobjectscriptextension-workspace'
+);
+
 //keywords
-const keywordsFile = path.join(__dirname, 'Keywords.json');
-let keyWords = JSON.parse(fs.readFileSync(keywordsFile).toString());
+let keywordsFile = undefined;
+let keyWords = undefined;
+try {
+   keywordsFile = path.join(workspacePath, 'Keywords.json');
+
+   keyWords = JSON.parse(fs.readFileSync(keywordsFile).toString())[
+      'File Templates'
+   ];
+} catch (e) {
+   createWorkspace();
+
+   keywordsFile = path.join(workspacePath, 'Keywords.json');
+
+   keyWords = JSON.parse(fs.readFileSync(keywordsFile).toString());
+}
 
 //Method template
-const methodTemplateFile = path.join(
+let methodTemplateFile = undefined;
+let methodTemplateJSON = undefined;
+try {
+   methodTemplateFile = path.join(
+      workspacePath,
+      'MethodDescriptionTemplate.json'
+   );
+
+   methodTemplateJSON = JSON.parse(
+      fs.readFileSync(methodTemplateFile).toString()
+   )['File Templates'];
+} catch (e) {
+   createWorkspace();
+
+   methodTemplateFile = path.join(
+      workspacePath,
+      'MethodDescriptionTemplate.json'
+   );
+
+   methodTemplateJSON = JSON.parse(
+      fs.readFileSync(methodTemplateFile).toString()
+   );
+}
+
+//keywords
+/* const keywordsFile = path.join(__dirname, 'Keywords.json');
+let keyWords = JSON.parse(fs.readFileSync(keywordsFile).toString()); */
+
+//Method template
+/* const methodTemplateFile = path.join(
    __dirname,
    'MethodDescriptionTemplate.json'
 );
 let methodTemplateJSON = JSON.parse(
    fs.readFileSync(methodTemplateFile).toString()
-);
+); */
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -809,6 +858,25 @@ function skipUnitlToken(index, startToken, endToken) {
       }
    }
    return vscode.window.activeTextEditor.document.lineCount - 1;
+}
+
+function createWorkspace() {
+   //make workspace
+   fs.mkdir(workspacePath, (err) => {
+      if (err) throw err;
+   });
+   //make keywords
+   fs.writeFileSync(
+      path.join(workspacePath, 'Keywords.json'),
+      fs.readFileSync(path.join(__dirname, 'Keywords.json')).toString()
+   );
+   //make MethodDescriptionTemplate
+   fs.writeFileSync(
+      path.join(workspacePath, 'MethodDescriptionTemplate.json'),
+      fs
+         .readFileSync(path.join(__dirname, 'MethodDescriptionTemplate.json'))
+         .toString()
+   );
 }
 
 /**
