@@ -1,6 +1,6 @@
 {
    "name": "ownobjectscriptextension",
-   "displayName": "OwnObjectscriptExtension",
+   "displayName": "OwnObjectScriptExtension",
    "description": "A VSCode Extension for InterSystems ObjectScript. Adds Set, Do and Write modifier to your ObjectScript code. ",
    "author": "Philipp B.",
    "publisher": "Philipp B.",
