@@ -1,4 +1,4 @@
-<img src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/logo.png" width="20%"/>
+<img src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/logo.png" width="30%"/>
 
 # OwnObjectScriptExtension
 
