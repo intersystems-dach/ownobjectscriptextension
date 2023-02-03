@@ -2,27 +2,25 @@
 
 # OwnObjectScriptExtension
 
-A VSCode Extension for [InterSystems ObjectScript](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_INTRO).
+A [Visual Studio code](https://code.visualstudio.com/) extension that supplies tools for [InterSystems ObjectScript](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_INTRO).
 
 ---
 
-* [Features](https://github.com/phil1436/ownobjectscriptextension#features)
-  * [Add ObjectScript Modifier](https://github.com/phil1436/ownobjectscriptextension#add-objectscript-modifier)
-  * [Add Method Description Template](https://github.com/phil1436/ownobjectscriptextension#add-method-description-template)
-  * [Make Select Statement](https://github.com/phil1436/ownobjectscriptextension#make-select-statement)
-  * [Translate Embedded Python](https://github.com/phil1436/ownobjectscriptextension#translate-embedded-python)
-* [Requirements](https://github.com/phil1436/ownobjectscriptextension#requirements)
-* [Installation](https://github.com/phil1436/ownobjectscriptextension#installation)
-* [Commands](https://github.com/phil1436/ownobjectscriptextension#commands)
-  * [Own ObjectScript Modifier](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-modifier)
-  * [Own ObjectScript Comment](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-comment)
-  * [Own ObjectScript SQL](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-sql)
-  * [Own ObjectScript Translate](https://github.com/phil1436/ownobjectscriptextension#own-objectscript-translate)
-* [Configuration](https://github.com/phil1436/ownobjectscriptextension#configuration)
-  * [Sql](https://github.com/phil1436/ownobjectscriptextension#sql)
-  * [Comment](https://github.com/phil1436/ownobjectscriptextension#comment)
-* [Bugs](https://github.com/phil1436/ownobjectscriptextension#bugs)
-* [Release Notes](https://github.com/phil1436/ownobjectscriptextension#release-notes)
+* [Features](#features)
+  * [Add ObjectScript Modifier](#add-objectscript-modifier)
+  * [Add Method Description Template](#add-method-description-template)
+  * [Make Select Statement](#make-select-statement)
+  * [Translate Embedded Python](#translate-embedded-python)
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Commands](#commands)
+  * [Own ObjectScript Modifier](#own-objectscript-modifier)
+  * [Own ObjectScript Comment](#own-objectscript-comment)
+  * [Own ObjectScript SQL](#own-objectscript-sql)
+  * [Own ObjectScript Translate](#own-objectscript-translate)
+* [Configuration](#configuration)
+* [Bugs](#bugs)
+* [Release Notes](#release-notes)
 
 ---
 
@@ -96,7 +94,7 @@ or download the [latest realease](https://github.com/phil1436/ownobjectscriptext
 
 ### Own ObjectScript Comment
 
-* `Add Method Description Template`: Adds a description template to your Method or ClassMethod. See [here](https://github.com/phil1436/ownobjectscriptextension#add-method-description-template) for more information.
+* `Add Method Description Template`: Adds a description template to your Method or ClassMethod. See [here](#add-method-description-template) for more information.
 * `Add Inline Comments`: Adds a comment in the current Method every specified count of lines without any comment (Default is every 5 lines).
 * `Edit Method Description Template`: Opens the *MethodDescriptionTemplate.json* file so can edit the method template. Reload Window after editing.
 
@@ -135,6 +133,10 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
+### [v0.0.10](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.10)
+
+* 
+
 ### [v0.0.9](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.9)
 
 * Insert Configurations
@@ -154,7 +156,7 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 * Bug fixes
 * Commands renamed
 
-## [v0.0.5](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.5)
+### [v0.0.5](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.5)
 
 * Commands added
 

@@ -2,6 +2,12 @@
 
 ---
 
+## [v0.0.10](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.10) (2023-1-?)
+
+* 
+
+---
+
 ## [v0.0.9](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.9) (2023-1-1)
 
 * Insert Configurations
