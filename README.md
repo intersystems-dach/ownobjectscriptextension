@@ -2,7 +2,7 @@
 
 # OwnObjectScriptExtension
 
-A [Visual Studio code](https://code.visualstudio.com/) extension that supplies tools for [InterSystems ObjectScript](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_INTRO).
+A [Visual Studio Code](https://code.visualstudio.com/) extension that supplies tools for [InterSystems ObjectScript](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_INTRO).
 
 ---
 
