@@ -1,129 +1,129 @@
 {
-   "name": "ownobjectscriptextension",
-   "displayName": "OwnObjectScriptExtension",
-   "description": "A VSCode Extension for InterSystems ObjectScript. Adds Set, Do and Write modifier to your ObjectScript code. ",
-   "author": "Philipp B.",
-   "publisher": "Philipp B.",
-   "license": "MIT",
-   "version": "0.0.10",
-   "repository": {
-      "type": "github",
-      "url": "https://github.com/phil1436/ownobjectscriptextension"
-   },
-   "engines": {
-      "vscode": "^1.73.0"
-   },
-   "icon": "resources/logo.png",
-   "categories": [
-      "Formatters"
-   ],
-   "keywords": [
-      "IntelliSense",
-      "intersystems",
-      "objectscript",
-      "multi-root ready"
-   ],
-   "activationEvents": [
-      "onCommand:ownobjectscriptextension.addObjectScriptModifier",
-      "onCommand:ownobjectscriptextension.addKeyWord",
-      "onCommand:ownobjectscriptextension.removeKeyWord",
-      "onCommand:ownobjectscriptextension.showKeyWords",
-      "onCommand:ownobjectscriptextension.addMethodDescriptionTemplate",
-      "onCommand:ownobjectscriptextension.addInlineComments",
-      "onCommand:ownobjectscriptextension.makeSelectStatement",
-      "onCommand:ownobjectscriptextension.translateEmbPython",
-      "onCommand:ownobjectscriptextension.editMethodDescriptionTemplate"
-   ],
-   "main": "./extension.js",
-   "contributes": {
-      "commands": [
-         {
-            "command": "ownobjectscriptextension.addObjectScriptModifier",
-            "title": "Add ObjectScript Modifier",
-            "category": "Own ObjectScript Modifier"
-         },
-         {
-            "command": "ownobjectscriptextension.addKeyWord",
-            "title": "Add ObjectScript Keyword",
-            "category": "Own ObjectScript Modifier"
-         },
-         {
-            "command": "ownobjectscriptextension.removeKeyWord",
-            "title": "Remove ObjectScript Keyword",
-            "category": "Own ObjectScript Modifier"
-         },
-         {
-            "command": "ownobjectscriptextension.showKeyWords",
-            "title": "Show ObjectScript Keywords",
-            "category": "Own ObjectScript Modifier"
-         },
-         {
-            "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
-            "title": "Add Method Description Template",
-            "category": "Own ObjectScript Comment"
-         },
-         {
-            "command": "ownobjectscriptextension.editMethodDescriptionTemplate",
-            "title": "Edit Method Description Template",
-            "category": "Own ObjectScript Comment"
-         },
-         {
-            "command": "ownobjectscriptextension.addInlineComments",
-            "title": "Add Inline Comments",
-            "category": "Own ObjectScript Comment"
-         },
-         {
-            "command": "ownobjectscriptextension.makeSelectStatement",
-            "title": "Make Select Statement",
-            "category": "Own ObjectScript SQL"
-         },
-         {
-            "command": "ownobjectscriptextension.translateEmbPython",
-            "title": "Translate Embedded Python",
-            "category": "Own ObjectScript Translate"
-         }
-      ],
-      "configuration": {
-         "title": "OwnObjectscriptExtension",
-         "properties": {
-            "ownobjectscriptextension.SaveFile": {
-               "type": "boolean",
-               "default": false,
-               "markdownDescription": "If enabled saves a file after executing command."
+    "name": "ownobjectscriptextension",
+    "displayName": "OwnObjectScriptExtension",
+    "description": "A Visual Studio Code extension that supplies tools for InterSystems ObjectScript. Adds ObjectScript Modifiers, Keywords, Inline Comments, Method Description Templates, Select Statements and Translates Embedded Python.",
+    "author": "Philipp B.",
+    "publisher": "Philipp B.",
+    "license": "MIT",
+    "version": "0.0.10",
+    "repository": {
+        "type": "github",
+        "url": "https://github.com/phil1436/ownobjectscriptextension"
+    },
+    "engines": {
+        "vscode": "^1.73.0"
+    },
+    "icon": "resources/logo.png",
+    "categories": [
+        "Formatters"
+    ],
+    "keywords": [
+        "IntelliSense",
+        "intersystems",
+        "objectscript",
+        "multi-root ready"
+    ],
+    "activationEvents": [
+        "onCommand:ownobjectscriptextension.addObjectScriptModifier",
+        "onCommand:ownobjectscriptextension.addKeyWord",
+        "onCommand:ownobjectscriptextension.removeKeyWord",
+        "onCommand:ownobjectscriptextension.showKeyWords",
+        "onCommand:ownobjectscriptextension.addMethodDescriptionTemplate",
+        "onCommand:ownobjectscriptextension.addInlineComments",
+        "onCommand:ownobjectscriptextension.makeSelectStatement",
+        "onCommand:ownobjectscriptextension.translateEmbPython",
+        "onCommand:ownobjectscriptextension.editMethodDescriptionTemplate"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "ownobjectscriptextension.addObjectScriptModifier",
+                "title": "Add ObjectScript Modifier",
+                "category": "Own ObjectScript Modifier"
             },
-            "ownobjectscriptextension.ShowMessages": {
-               "type": "boolean",
-               "default": true,
-               "markdownDescription": "If enabled prompts information messages."
+            {
+                "command": "ownobjectscriptextension.addKeyWord",
+                "title": "Add ObjectScript Keyword",
+                "category": "Own ObjectScript Modifier"
             },
-            "ownobjectscriptextension.sql.OpenSQLFile": {
-               "type": "boolean",
-               "default": false,
-               "markdownDescription": "If enabled a .sql file will be generated after `Own ObjectScript SQL: Make Select Statement`."
+            {
+                "command": "ownobjectscriptextension.removeKeyWord",
+                "title": "Remove ObjectScript Keyword",
+                "category": "Own ObjectScript Modifier"
             },
-            "ownobjectscriptextension.comment.InLineCommentCount": {
-               "type": "number",
-               "default": 5,
-               "minimum": 1,
-               "markdownDescription": "Sets the line count between added comments for `Own ObjectScript Comment: Add Inline Comments`"
+            {
+                "command": "ownobjectscriptextension.showKeyWords",
+                "title": "Show ObjectScript Keywords",
+                "category": "Own ObjectScript Modifier"
+            },
+            {
+                "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
+                "title": "Add Method Description Template",
+                "category": "Own ObjectScript Comment"
+            },
+            {
+                "command": "ownobjectscriptextension.editMethodDescriptionTemplate",
+                "title": "Edit Method Description Template",
+                "category": "Own ObjectScript Comment"
+            },
+            {
+                "command": "ownobjectscriptextension.addInlineComments",
+                "title": "Add Inline Comments",
+                "category": "Own ObjectScript Comment"
+            },
+            {
+                "command": "ownobjectscriptextension.makeSelectStatement",
+                "title": "Make Select Statement",
+                "category": "Own ObjectScript SQL"
+            },
+            {
+                "command": "ownobjectscriptextension.translateEmbPython",
+                "title": "Translate Embedded Python",
+                "category": "Own ObjectScript Translate"
             }
-         }
-      }
-   },
-   "scripts": {
-      "lint": "eslint .",
-      "pretest": "npm run lint",
-      "test": "node ./test/runTest.js"
-   },
-   "devDependencies": {
-      "@types/vscode": "^1.73.0",
-      "@types/glob": "^8.0.0",
-      "@types/mocha": "^10.0.0",
-      "@types/node": "16.x",
-      "eslint": "^8.26.0",
-      "glob": "^8.0.3",
-      "mocha": "^10.1.0",
-      "typescript": "^4.8.4",
-      "@vscode/test-electron": "^2.2.0"
-   }
+        ],
+        "configuration": {
+            "title": "OwnObjectscriptExtension",
+            "properties": {
+                "ownobjectscriptextension.SaveFile": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "If enabled saves a file after executing command."
+                },
+                "ownobjectscriptextension.ShowMessages": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "If enabled prompts information messages."
+                },
+                "ownobjectscriptextension.sql.OpenSQLFile": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "If enabled a .sql file will be generated after `Own ObjectScript SQL: Make Select Statement`."
+                },
+                "ownobjectscriptextension.comment.InLineCommentCount": {
+                    "type": "number",
+                    "default": 5,
+                    "minimum": 1,
+                    "markdownDescription": "Sets the line count between added comments for `Own ObjectScript Comment: Add Inline Comments`"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "npm run lint",
+        "test": "node ./test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.73.0",
+        "@types/glob": "^8.0.0",
+        "@types/mocha": "^10.0.0",
+        "@types/node": "16.x",
+        "eslint": "^8.26.0",
+        "glob": "^8.0.3",
+        "mocha": "^10.1.0",
+        "typescript": "^4.8.4",
+        "@vscode/test-electron": "^2.2.0"
+    }
 }
