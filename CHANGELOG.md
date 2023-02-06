@@ -2,6 +2,12 @@
 
 ---
 
+## [v0.0.11](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.11) (2023-2-6)
+
+-   Bug fixes
+
+---
+
 ## [v0.0.10](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.10) (2023-2-1)
 
 -   Logo changed
