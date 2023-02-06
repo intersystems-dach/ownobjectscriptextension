@@ -139,6 +139,10 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
+### [v0.0.11](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.11)
+
+-   Bug fixes
+
 ### [v0.0.10](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.10)
 
 -   Logo changed
