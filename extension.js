@@ -49,19 +49,6 @@ try {
     );
 }
 
-//keywords
-/* const keywordsFile = path.join(__dirname, 'Keywords.json');
-let keyWords = JSON.parse(fs.readFileSync(keywordsFile).toString()); */
-
-//Method template
-/* const methodTemplateFile = path.join(
-   __dirname,
-   'MethodDescriptionTemplate.json'
-);
-let methodTemplateJSON = JSON.parse(
-   fs.readFileSync(methodTemplateFile).toString()
-); */
-
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -285,7 +272,7 @@ function activate(context) {
             }
 
             // add paremeter description
-            template += makeParemterTemplate(startLine);
+            template += makeParamterTemplate(startLine);
 
             //if has return value
             if (startLine.split(')')[1].toLowerCase().includes('as')) {
@@ -313,14 +300,7 @@ function activate(context) {
             }
 
             //get classname
-            let className =
-                vscode.window.activeTextEditor.document.fileName.replace(
-                    '.cls',
-                    ''
-                );
-            className = ownReplaceAll(className, '\\', '.');
-            if (className.startsWith('.'))
-                className = className.replace('.', '');
+            let className = getClassName();
 
             //get method name
             let methodName = startLine.split(' ')[1];
@@ -438,25 +418,10 @@ function activate(context) {
         function () {
             if (!preConditions()) return;
 
-            let className = ownReplaceAll(
-                vscode.window.activeTextEditor.document.fileName.replace(
-                    '.cls',
-                    ''
-                ),
-                '\\',
-                '_'
-            ).replace('_', '');
-            let lastIndex = className.lastIndexOf('_');
-
-            if (lastIndex == -1) {
-                vscode.window.showErrorMessage('Something went wrong!');
-                return;
+            let className = getClassName();
+            for (let i = 1; i < (className.match(/\./g) || []).length; i++) {
+                className = className.replace('.', '_');
             }
-
-            className =
-                className.substring(0, lastIndex) +
-                '.' +
-                className.substring(lastIndex + 1);
 
             let selectStmt = 'SELECT *\nFROM ' + className;
             //Copy to clipboard
@@ -485,6 +450,7 @@ function activate(context) {
             let startLineIndex = undefined;
             let isPython = false;
             let methodAttributes = undefined;
+            let firstMethodLine = undefined;
 
             // Find method
             for (
@@ -498,6 +464,7 @@ function activate(context) {
                     trimedLine.startsWith('method') ||
                     trimedLine.startsWith('classmethod')
                 ) {
+                    firstMethodLine = i;
                     let offset = 0;
                     let lineString = line.text;
                     while (!lineString.includes('{')) {
@@ -535,70 +502,70 @@ function activate(context) {
                 return;
             }
 
+            let methodText = [];
+            let lastMethodLine = skipUnitlToken(firstMethodLine, '{', '}');
+            let methodHead = '';
+            let finishedHead = false;
+            for (let i = firstMethodLine; i < lastMethodLine; i++) {
+                let line =
+                    vscode.window.activeTextEditor.document.lineAt(i).text;
+                if (!finishedHead) {
+                    methodHead += line + '\n';
+                } else methodText.push(line);
+                if (line.includes('{')) finishedHead = true;
+            }
+            console.log(methodHead);
+            console.log(methodText);
+
             let endLineIndex = skipUnitlToken(startLineIndex, '{', '}');
 
             vscode.window.activeTextEditor.edit(function (editBuilder) {
-                // add language = python
-                if (methodAttributes == undefined)
-                    editBuilder.insert(
-                        new vscode.Position(startLineIndex, 0),
-                        '[Language = python]\n'
-                    );
+                //add language = python
+                if (!methodHead.includes('['))
+                    methodHead =
+                        methodHead.split('{')[0] +
+                        '[Language = python]' +
+                        '{\n';
                 else {
-                    let t =
-                        vscode.window.activeTextEditor.document.lineAt(
-                            startLineIndex
-                        ).text;
-                    let offset = 0;
-                    while (!t.includes('[')) {
-                        t = vscode.window.activeTextEditor.document.lineAt(
-                            startLineIndex - offset - 1
-                        ).text;
-                        offset++;
-                    }
-                    let range = new vscode.Range(
-                        new vscode.Position(
-                            startLineIndex - offset,
-                            t.indexOf('[')
-                        ),
-                        new vscode.Position(
-                            startLineIndex - offset,
-                            t.indexOf(']') + 1
-                        )
-                    );
                     if (
-                        methodAttributes
+                        methodHead
                             .toLowerCase()
                             .replace(/\s/g, '')
                             .includes('language=objectscript')
                     ) {
-                        methodAttributes = methodAttributes.replace(
-                            /\,*language\s*=\s*objectscript\,*/i,
-                            ''
-                        );
-                    }
-                    editBuilder.replace(
-                        range,
-                        '[' + methodAttributes + ', Language = python]'
-                    );
+                        methodHead =
+                            methodHead.split('[')[0] +
+                            '[' +
+                            methodHead
+                                .split('[')[1]
+                                .replace(/objectscript/i, 'python');
+                    } else
+                        methodHead =
+                            methodHead.split(']')[0] +
+                            ', Language = python]' +
+                            methodHead.split(']')[1];
                 }
 
+                //add py to method name
+                let temp = methodHead.split(' ')[0] + ' py';
+                for (let i = 1; i < methodHead.split(' ').length; i++) {
+                    if (i != 1) temp += ' ';
+                    temp += methodHead.split(' ')[i];
+                }
+                methodHead = temp;
                 //add import iris
-                editBuilder.insert(
-                    new vscode.Position(startLineIndex + 1, 0),
-                    '    import iris\n'
-                );
-
-                //translate
-                for (let i = startLineIndex + 1; i < endLineIndex; i++) {
-                    let newLine = convertObjectscriptToPython(
-                        vscode.window.activeTextEditor.document.lineAt(i).text
-                    );
-                    editBuilder.replace(
-                        vscode.window.activeTextEditor.document.lineAt(i).range,
-                        newLine
-                    );
+                methodHead += '    import iris\n';
+                for (let i = 0; i < methodText.length; i++) {
+                    let newLine =
+                        convertObjectscriptToPython(methodText[i]) + '\n';
+                    methodHead += newLine;
                 }
+                methodHead += '}\n\n';
+                console.log(methodHead);
+                editBuilder.insert(
+                    new vscode.Position(lastMethodLine + 2, 0),
+                    methodHead
+                );
             });
 
             //Save if option is turned on
@@ -677,6 +644,41 @@ function activate(context) {
             }); */
         }
     );
+
+    /* const provider2 = vscode.languages.registerCompletionItemProvider(
+        'plaintext',
+        {
+            provideCompletionItems(
+                document = vscode.window.activeTextEditor.document,
+                position = vscode.window.activeTextEditor.selection.active
+            ) {
+                // get all text until the `position` and check if it reads `console.`
+                // and if so then complete if `log`, `warn`, and `error`
+                const linePrefix = document
+                    .lineAt(position)
+                    .text.substr(0, position.character);
+                if (!linePrefix.endsWith('console.')) {
+                    return undefined;
+                }
+
+                return [
+                    new vscode.CompletionItem(
+                        'log',
+                        vscode.CompletionItemKind.Method
+                    ),
+                    new vscode.CompletionItem(
+                        'warn',
+                        vscode.CompletionItemKind.Method
+                    ),
+                    new vscode.CompletionItem(
+                        'error',
+                        vscode.CompletionItemKind.Method
+                    ),
+                ];
+            },
+        },
+        '.' // triggered whenever a '.' is being typed
+    ); */
 
     context.subscriptions.push(disposable);
 }
@@ -799,9 +801,25 @@ function ownReplaceAll(s, searchString, replaceString) {
 }
 
 /**
+ * Gets the name of the class
+ * @returns {string} the name of the class
+ */
+function getClassName() {
+    let document = vscode.window.activeTextEditor.document;
+    for (let i = 0; i < document.lineCount; i++) {
+        let line = document.lineAt(i);
+        if (line.text.toLowerCase().replace(/\s/g, '').startsWith('class')) {
+            let className = line.text.split(' ')[1];
+            return className;
+        }
+    }
+    return '';
+}
+
+/**
  * @param {string} startLine
  */
-function makeParemterTemplate(startLine) {
+function makeParamterTemplate(startLine) {
     let parameterRaw = startLine.split('(')[1];
     let parameterArray = parameterRaw.split(')')[0].split(',');
     let parameterTemplate = '';

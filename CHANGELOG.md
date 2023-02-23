@@ -2,6 +2,13 @@
 
 ---
 
+## [v0.0.12](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.12) (2023-2-23)
+
+-   Bug fixes
+-   `Translate Embedded Python` will now generate a new method with the same name and the prefix _py_.
+
+---
+
 ## [v0.0.11](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.11) (2023-2-6)
 
 -   Bug fixes
