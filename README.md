@@ -10,7 +10,7 @@ A [Visual Studio Code](https://code.visualstudio.com/) extension that supplies t
     -   [Add ObjectScript Modifier](#add-objectscript-modifier)
     -   [Add Method Description Template](#add-method-description-template)
     -   [Make Select Statement](#make-select-statement)
-    -   [Translate Embedded Python](#translate-embedded-python)
+    -   [Translate Embedded Python](#translate-embedded-python-beta)
 -   [Requirements](#requirements)
 -   [Installation](#installation)
 -   [Workspace](#workspace)
@@ -53,11 +53,13 @@ Generates a \*SELECT \*\* statement based on the current opened file.
 
 > Tip: Install the [SQLTools](https://github.com/mtxr/vscode-sqltools) extension to execute the statement directly in VSCode.
 
-### `Translate Embedded Python`
+### `Translate Embedded Python` _BETA_
 
-Translate an ObjectSCript Method to embedded python.
+Translate an ObjectSCript Method to embedded python. Will generate a new method with the same name and the prefix _py_.
 
 ![demoTranslateEmbeddedPython](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoTranslateEmbeddedPython.gif)
+
+> **This feature is still in beta.**
 
 ---
 
@@ -110,7 +112,7 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 
 ### Own ObjectScript Translate
 
--   `Translate Embedded Python`: Translates an Objectscript method to embedded python.
+-   `Translate Embedded Python`: Translates an Objectscript method to a new method with embedded python. See [here](#translate-embedded-python-beta) for more information.
 
 ---
 
@@ -138,6 +140,10 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 ---
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
+
+### [v0.0.12](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.12)
+
+-
 
 ### [v0.0.11](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.11)
 
