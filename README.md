@@ -143,58 +143,8 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 ### [v0.0.12](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.12)
 
--
-
-### [v0.0.11](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.11)
-
 -   Bug fixes
-
-### [v0.0.10](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.10)
-
--   Logo changed
--   _workspace_ added
-
-### [v0.0.9](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.9)
-
--   Insert Configurations
--   Commands added
--   Commands removed
-
-### [v0.0.8](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.8)
-
--   Bug fixes
-
-### [v0.0.7](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.7)
-
--   Commands added
-
-### [v0.0.6](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.6)
-
--   Bug fixes
--   Commands renamed
-
-### [v0.0.5](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.5)
-
--   Commands added
-
-### [v0.0.4](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.4)
-
--   Bug fixes
--   Commands added
-
-### [v0.0.3](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.3)
-
--   Design changes
--   Commands added
-
-### [v0.0.2](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.2)
-
--   options.json added
--   Commands added
-
-### [v0.0.1](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.1)
-
--   _Initial release_
+-   `Translate Embedded Python` will now generate a new method with the same name and the prefix _py_.
 
 ---
 
