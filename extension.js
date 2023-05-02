@@ -1,6 +1,8 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
+const { TextEncoder } = require('util');
+const wizard = require('./wizard');
 
 //workspace path
 const workspacePath = path.join(
@@ -593,13 +595,54 @@ function activate(context) {
     vscode.commands.registerCommand(
         'ownobjectscriptextension.createNewClass',
         async function () {
+            //Get workspace folder
+            if (vscode.workspace.workspaceFolders.length == 0) {
+                vscode.window.showErrorMessage('Open a folder!');
+                return;
+            }
+            let workspacefolderUri = undefined;
+            if (vscode.workspace.workspaceFolders.length > 1) {
+                let wsfList = [];
+                for (let i in vscode.workspace.workspaceFolders) {
+                    wsfList.push(vscode.workspace.workspaceFolders[i].name);
+                }
+                let choice = undefined;
+                await vscode.window
+                    .showQuickPick(wsfList, {
+                        placeHolder: 'Select a workspace folder:',
+                    })
+                    .then(
+                        (value) => {
+                            choice = value;
+                        },
+                        (reason) => {
+                            vscode.window.showErrorMessage(
+                                'Something went wrong:' + reason
+                            );
+                        }
+                    );
+                for (let i in vscode.workspace.workspaceFolders) {
+                    if (choice == vscode.workspace.workspaceFolders[i].name) {
+                        workspacefolderUri =
+                            vscode.workspace.workspaceFolders[i].uri;
+                        break;
+                    }
+                }
+            } else {
+                workspacefolderUri = vscode.workspace.workspaceFolders[0].uri;
+            }
+            if (workspacefolderUri == undefined) {
+                vscode.window.showErrorMessage('Something went wrong!');
+                return;
+            }
+
+            //select kind of class
             let kind = undefined;
             await vscode.window
-                .showQuickPick([
-                    'Class',
-                    'Business Service',
-                    'Business Operation',
-                ])
+                .showQuickPick(
+                    ['Class', 'Business Service', 'Business Operation'],
+                    { placeHolder: 'What do you want to generate?' }
+                )
                 .then(
                     (value) => {
                         kind = value;
@@ -624,346 +667,36 @@ function activate(context) {
 
             //class
             if (kind == 'Class') {
-                let classType = await vscode.window.showQuickPick([
-                    'Persistent (can be stored within the database)',
-                    'Serial (can be embedded within persistent objects)',
-                    'Registered (not stored within the database)',
-                    'Abstract',
-                    'Datatype',
-                    'CSP (used to process HTTP events)',
-                    'Extends ...',
-                ]);
-                if (classType == undefined) return;
-                switch (classType) {
-                    case 'Persistent (can be stored within the database)':
-                        classType = 'Extends %Persistent';
-                        break;
-                    case 'Serial (can be embedded within persistent objects)':
-                        classType = 'Extends %SerialObject';
-                        break;
-                    case 'Registered (not stored within the database)':
-                        classType = 'Extends %RegisteredObject';
-                        break;
-                    case 'Abstract':
-                        classType = '[ Abstract ]';
-                        break;
-                    case 'Datatype':
-                        classType = '[ ClassType = datatype ]';
-                        break;
-                    case 'CSP (used to process HTTP events)':
-                        classType = 'Extends %CSP.Page';
-                        break;
-                    case 'Extends ...':
-                        classType = await vscode.window.showInputBox({
-                            placeHolder: 'Comma-sperated superclasses',
-                        });
-                        if (classType == undefined) return;
-                        if (classType != '') {
-                            classType = 'Extends (' + classType + ')';
-                        }
-                        break;
-                    default:
-                        classType = '';
-                        break;
-                }
-
-                text =
-                    'Class ' +
-                    packageName +
-                    '.' +
-                    className +
-                    ' ' +
-                    classType +
-                    ' \n{ \n\n}';
+                text = await wizard.createClass(className, packageName);
             }
             if (kind == 'Business Service') {
-                // TODO add types of method parameters dependend of the adapter
-                const inboundAdapterSuggestion = [
-                    'None',
-                    'Ens.Enterprise.MsgBank.BankTCPAdapter',
-                    'Ens.InboundAdapter',
-                    'EnsLib.CloudStorage.InboundAdapter',
-                    'EnsLib.EDI.X12.Adapter.TCPInboundAdapter',
-                    'EnsLib.EMail.InboundAdapter',
-                    'EnsLib.File.InboundAdapter',
-                    'EnsLib.FTP.InboundAdapter',
-                    'EnsLib.Gateway.ServiceAdapter',
-                    'EnsLib.HTTP.InboundAdapter',
-                    'EnsLib.JavaGateway.InboundAdapter',
-                    'EnsLib.JMS.InboundAdapter',
-                    'EnsLib.Kafka.InboundAdapter',
-                    'EnsLib.MFT.InboundAdapter',
-                    'EnsLib.MQSeries.InboundAdapter',
-                    'EnsLib.MQTT.Adapter.Inbound',
-                    'EnsLib.PEX.InboundAdapter',
-                    'EnsLib.Pipe.InboundAdapter',
-                    'EnsLib.SOAP.InboundAdapter',
-                    'EnsLib.SQL.InboundAdapter',
-                    'EnsLib.SQL.InboundProcAdapter',
-                    'EnsLib.TCP.CountedInboundAdapter',
-                    'EnsLib.TCP.CountedXMLInboundAdapter',
-                    'EnsLib.TCP.DuplexAdapter',
-                    'EnsLib.TCP.FramedInboundAdapter',
-                    'EnsLib.TCP.InboundAdapter',
-                    'EnsLib.TCP.TextLineInboundAdapter',
-                    'EnsLib.UDP.InboundAdapter',
-                    'Costum',
-                ];
-                let inboundAdapter = await vscode.window.showQuickPick(
-                    inboundAdapterSuggestion
+                text = await wizard.createBusinessService(
+                    className,
+                    packageName
                 );
-                if (inboundAdapter == undefined) return;
-
-                if (inboundAdapter == 'Costum') {
-                    inboundAdapter = await vscode.window.showInputBox({
-                        placeHolder: 'Inbound Adapter Name',
-                    });
-                    if (inboundAdapter == undefined) return;
-                    if (inboundAdapter == '') {
-                        inboundAdapter = 'None';
-                    }
-                }
-                if (inboundAdapter == 'None') {
-                    inboundAdapter = '';
-                } else {
-                    inboundAdapter =
-                        'Parameter ADAPTER = "' + inboundAdapter + '";';
-                }
-                text =
-                    'Class ' +
-                    packageName +
-                    '.' +
-                    className +
-                    ' Extends Ens.BusinessService' +
-                    ' \n{ \n\n' +
-                    inboundAdapter +
-                    '\n\nMethod OnProcessInput(pInput As %RegisteredObject, Output pOutput As %RegisteredObject) As %Status\n' +
-                    '{\n\n	Quit $$$ERROR($$$NotImplemented)\n}\n\n}';
             }
             if (kind == 'Business Operation') {
-                //Adapter
-                const outboundAdapterSuggestion = [
-                    'None',
-                    'Ens.Enterprise.MsgBank.ClientTCPAdapter',
-                    'Ens.AmazonCloudWatch.OutboundAdapter',
-                    'Ens.AmazonCloudWatchLogs.OutboundAdapter',
-                    'Ens.AmazonSNS.OutboundAdapter',
-                    'EnsLib.CloudStorage.OutboundAdapter',
-                    'EnsLib.EDI.X12.Adapter.TCPOutboundAdapter',
-                    'EnsLib.EMail.OutboundAdapter',
-                    'EnsLib.File.OutboundAdapter',
-                    'EnsLib.FTP.OutboundAdapter',
-                    'EnsLib.HTTP.OutboundAdapter',
-                    'EnsLib.JavaGateway.OutboundAdapter',
-                    'EnsLib.JMS.OutboundAdapter',
-                    'EnsLib.Kafka.OutboundAdapter',
-                    'EnsLib.LDAP.Adapter.Outbound',
-                    'EnsLib.LDAP.OutboundAdapter',
-                    'EnsLib.MFT.Adapter.Outbound',
-                    'EnsLib.MQSeries.OutboundAdapter',
-                    'EnsLib.MQTT.Adapter.Outbound',
-                    'EnsLib.PEX.OutboundAdapter',
-                    'EnsLib.Pipe.OutboundAdapter',
-                    'EnsLib.SAP.OutboundAdapter',
-                    'EnsLib.Siebel.HTTPOutboundAdapter',
-                    'EnsLib.SOAP.CST.OutboundAdapter',
-                    'EnsLib.SOAP.OutboundAdapter',
-                    'EnsLib.SQL.OutboundAdapter',
-                    'EnsLib.TCP.CountedOutboundAdapter',
-                    'EnsLib.TCP.CountedXMLOutboundAdapter',
-                    'EnsLib.TCP.DuplexAdapter',
-                    'EnsLib.TCP.FramedOutboundAdapter',
-                    'EnsLib.TCP.OutboundAdapter',
-                    'EnsLib.TCP.TextLineOutboundAdapter',
-                    'EnsLib.Telnet.OutboundAdapter',
-                    'EnsLib.TN3270.OutboundAdapter',
-                    'EnsLib.UDP.OutboundAdapter',
-                    'Costum',
-                ];
-                let outboundAdapter = await vscode.window.showQuickPick(
-                    outboundAdapterSuggestion
+                text = await wizard.createBusinessOperation(
+                    className,
+                    packageName
                 );
-                if (outboundAdapter == undefined) return;
-
-                if (outboundAdapter == 'Costum') {
-                    outboundAdapter = await vscode.window.showInputBox({
-                        placeHolder: 'Outbound Adapter Name',
-                    });
-                    if (outboundAdapter == undefined) return;
-                    if (outboundAdapter == '') {
-                        outboundAdapter = 'None';
-                    }
-                }
-                if (outboundAdapter == 'None') {
-                    outboundAdapter = '';
-                } else {
-                    outboundAdapter =
-                        'Parameter ADAPTER = "' +
-                        outboundAdapter +
-                        '";\n\n' +
-                        'Property Adapter As ' +
-                        outboundAdapter +
-                        ';';
-                }
-
-                // Queued or in Process
-                let kindOfOperation = await vscode.window.showQuickPick([
-                    'In Process',
-                    'Queued',
-                ]);
-                if (kindOfOperation == undefined) return;
-                let invocation = 'Parameter INVOCATION = "Queue";';
-                if (kindOfOperation == 'In Process')
-                    invocation = 'Parameter INVOCATION = "InProc";';
-
-                //Operation Methods
-                const messageTypes = [
-                    'Ens.AlarmRequest',
-                    'Ens.AlarmResponse',
-                    'Ens.AlarmTriggerRequest',
-                    'Ens.AlertRequest',
-                    'Ens.Background.Request',
-                    'Ens.Background.Request.ExportMessage',
-                    'Ens.Request',
-                    'Ens.Response',
-                    'Ens.StringRequest',
-                    'Ens.StringResponse',
-                    'EnsLib.AmazonCloudWatch.PutMetricAlarmRequest',
-                    'EnsLib.AmazonCloudWatch.PutMetricDataRequest',
-                    'EnsLib.AmazonCloudWatchLogs.LogEventsRequest',
-                    'EnsLib.AmazonCloudWatchLogs.LogEventsResponse',
-                    'EnsLib.AmazonSNS.PublishRequest',
-                    'EnsLib.Background.Workflow.ExportRequest',
-                    'EnsLib.Background.Workflow.ExportResponse',
-                    'EnsLib.CloudStorage.DeleteRequest',
-                    'EnsLib.CloudStorage.UploadRequest',
-                    'EnsLib.ebXML.Operation.MessageTrackerTrackAcknowledgement',
-                    'EnsLib.ebXML.Operation.MessageTrackerTrackResponse',
-                    'EnsLib.EDI.BatchDocument',
-                    'EnsLib.EDI.EDIFACT.Document',
-                    'EnsLib.EDI.EDIFACT.Segment',
-                    'EnsLib.EDI.Segment',
-                    'EnsLib.EDI.X12.Document',
-                    'EnsLib.EDI.X12.Segment',
-                    'EnsLib.EDI.XML.Document',
-                    'EnsLib.EDI.XML.DOM',
-                    'EnsLib.EDI.XML.Prop',
-                    'EnsLib.JMS.Message',
-                    'EnsLib.JMS.Response',
-                    'EnsLib.Kafka.Message',
-                    'EnsLib.LDAP.Message.Add',
-                    'EnsLib.LDAP.Message.Compare',
-                    'EnsLib.LDAP.Message.Comparison',
-                    'EnsLib.LDAP.Message.Delete',
-                    'EnsLib.LDAP.Message.Modify',
-                    'EnsLib.LDAP.Message.Rename',
-                    'EnsLib.LDAP.Message.Results',
-                    'EnsLib.LDAP.Message.Search',
-                    'EnsLib.LDAP.Message.Status',
-                    'EnsLib.PEX.Message',
-                    'EnsLib.PubSub.Request',
-                    'EnsLib.PubSub.Response',
-                    'EnsLib.PushNotifications.IdentityManager.NotificationByIdentityRequest',
-                    'EnsLib.PushNotifications.IdentityManager.NotificationByIdentityResponse',
-                    'EnsLib.PushNotifications.NotificationRequest',
-                    'EnsLib.PushNotifications.NotificationResponse',
-                    'EnsLib.RecordMap.Batch',
-                    'EnsLib.RecordMap.BatchResponse',
-                    'EnsLib.RecordMap.BatchRolloverRequest',
-                    'EnsLib.RecordMap.SimpleBatch',
-                    'EnsLib.SAP.RFCPING',
-                    'EnsLib.SAP.RFCPING.Response',
-                    'EnsLib.Testing.Request',
-                    'EnsLib.Workflow.TaskRequest',
-                    'EnsLib.Workflow.TaskResponse',
-                    'EnsLib.XSLT.TransformationRequest',
-                    'EnsLib.XSLT.TransformationResponse',
-                    'Costum',
-                ];
-
-                let methods = '';
-                let xData = undefined;
-                while (true) {
-                    //Method Name
-                    let methodName = await vscode.window.showInputBox({
-                        placeHolder:
-                            'Operation Method Name (leave empty to exit)',
-                    });
-                    if (methodName == undefined) return;
-                    if (methodName == '') {
-                        break;
-                    }
-
-                    //Request Type
-                    let requestType = await vscode.window.showQuickPick(
-                        messageTypes
-                    );
-                    if (requestType == undefined) return;
-
-                    if (requestType == 'Costum') {
-                        requestType = await vscode.window.showInputBox({
-                            placeHolder: 'Request Type Name',
-                        });
-                        if (requestType == undefined) return;
-                    }
-
-                    //Response Type
-                    let responseType = await vscode.window.showQuickPick(
-                        messageTypes
-                    );
-                    if (responseType == undefined) return;
-
-                    if (responseType == 'Costum') {
-                        responseType = await vscode.window.showInputBox({
-                            placeHolder: 'Response Type Name',
-                        });
-                        if (responseType == undefined) return;
-                    }
-
-                    methods +=
-                        '\n\nMethod ' +
-                        methodName +
-                        '(pRequest As ' +
-                        requestType +
-                        ', Output pResponse As ' +
-                        responseType +
-                        ') As %Status\n{\n\n	Quit $$$ERROR($$$NotImplemented)\n}';
-                    if (xData == undefined)
-                        xData = '\n\nXData MessageMap\n{\n<MapItems>';
-                    xData +=
-                        '\n	<MapItem MessageType="' +
-                        requestType +
-                        '">\n		<Method>' +
-                        methodName +
-                        '</Method>\n	</MapItem>';
-                }
-
-                if (xData == undefined) xData = '';
-                else xData += '\n</MapItems>\n}';
-                text =
-                    'Class ' +
-                    packageName +
-                    '.' +
-                    className +
-                    ' Extends Ens.BusinessOperation' +
-                    ' \n{ \n\n' +
-                    outboundAdapter +
-                    '\n\n' +
-                    invocation +
-                    methods +
-                    xData +
-                    '\n\n}';
             }
-            vscode.workspace
-                .openTextDocument({
-                    language: 'objectscript-class',
-                    content: text,
-                })
-                .then((a) => {
-                    vscode.window.showTextDocument(a, 1, false);
-                    //vscode.window.activeTextEditor.document.save();
-                });
-            //vscode.window.showWorkspaceFolderPick().then(folder=>{folder.});
+
+            if (text == undefined) return;
+
+            let fileUri = vscode.Uri.joinPath(
+                workspacefolderUri,
+                packageName,
+                className + '.cls'
+            );
+
+            await vscode.workspace.fs.writeFile(
+                fileUri,
+                new TextEncoder().encode(text)
+            );
+
+            let doc = await vscode.workspace.openTextDocument(fileUri); // calls back into the provider
+            await vscode.window.showTextDocument(doc, { preview: false });
         }
     );
 
