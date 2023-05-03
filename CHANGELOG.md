@@ -2,6 +2,12 @@
 
 ---
 
+## [v0.0.13](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.13) (2023-5-3)
+
+-   Command `Create New Class` added
+
+---
+
 ## [v0.0.12](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.12) (2023-2-23)
 
 -   Bug fixes

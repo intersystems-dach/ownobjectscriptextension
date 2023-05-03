@@ -107,6 +107,11 @@
                     "default": false,
                     "markdownDescription": "If enabled a .sql file will be generated after `Own ObjectScript SQL: Make Select Statement`."
                 },
+                "ownobjectscriptextension.create.AskForPackageFirst": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "If enabled the command `Own ObjectScript Create: Create New Class` will first ask for the package name and then for the class name."
+                },
                 "ownobjectscriptextension.comment.InLineCommentCount": {
                     "type": "number",
                     "default": 5,

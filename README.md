@@ -7,25 +7,35 @@ A [Visual Studio Code](https://code.visualstudio.com/) extension that supplies t
 ---
 
 -   [Features](#features)
+    -   [Create New Class](#create-new-class)
     -   [Add ObjectScript Modifier](#add-objectscript-modifier)
     -   [Add Method Description Template](#add-method-description-template)
     -   [Make Select Statement](#make-select-statement)
-    -   [Translate Embedded Python](#translate-embedded-python-beta)
+    -   [Translate Embedded Python _BETA_](#translate-embedded-python-_beta_)
 -   [Requirements](#requirements)
 -   [Installation](#installation)
 -   [Workspace](#workspace)
 -   [Commands](#commands)
+    -   [Own ObjectScript Create](#own-objectscript-create)
     -   [Own ObjectScript Modifier](#own-objectscript-modifier)
     -   [Own ObjectScript Comment](#own-objectscript-comment)
     -   [Own ObjectScript SQL](#own-objectscript-sql)
     -   [Own ObjectScript Translate](#own-objectscript-translate)
 -   [Configuration](#configuration)
+    -   [Sql](#sql)
+    -   [Comment](#comment)
 -   [Bugs](#bugs)
 -   [Release Notes](#release-notes)
 
 ---
 
 ## Features
+
+### `Create New Class`
+
+Creates a new ObjectScript Class, Message, Business Service or Business Operation similar to the InterSystems Studio Wizard. Just execute the command and follow the instructions.
+
+![DemoCreateNewClass](resources/DemoCreateNewClass.gif)
 
 ### `Add ObjectScript Modifier`
 
@@ -47,7 +57,7 @@ Generates description templates for your Methods. Just put your cursor in the Me
 
 ### `Make Select Statement`
 
-Generates a \*SELECT \*\* statement based on the current opened file.
+Generates a _SELECT_ statement based on the current opened file.
 
 ![demoMakeSelectStatement](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/DemoMakeSelectStatement.gif)
 
@@ -91,6 +101,10 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 
 ## Commands
 
+### Own ObjectScript Create
+
+-   `Create New Class`: Creates a new ObjectScript class. See [here](#create-new-class) for more information.
+
 ### Own ObjectScript Modifier
 
 -   `Add ObjectScript Modifier`: Adds `Set`, `Do` and `Write` modifier to your ObjectScript code. See [here](https://github.com/phil1436/ownobjectscriptextension#add-objectscript-modifier) for more information.
@@ -131,6 +145,10 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 -   `In Line Comment Count`: Sets the line count between added comments for `Own ObjectScript Comment: Add Inline Comments` (Default: _5_).
 
+### Create
+
+-   `Ask For Package First`: Set if the extension should ask for the package first (Default: _disabled_).
+
 ---
 
 ## Bugs
@@ -141,10 +159,9 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
-### [v0.0.12](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.12)
+### [v0.0.13](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.13)
 
--   Bug fixes
--   `Translate Embedded Python` will now generate a new method with the same name and the prefix _py_.
+-   Command `Create New Class` added
 
 ---
 

@@ -662,14 +662,31 @@ function activate(context) {
                 );
             if (kind == undefined) return;
             // get class name and package
-            let className = await vscode.window.showInputBox({
-                placeHolder: 'Class Name',
-            });
-            if (className == undefined) return;
-            let packageName = await vscode.window.showInputBox({
-                placeHolder: 'Package',
-            });
-            if (packageName == undefined) return;
+            let className = undefined;
+            let packageName = undefined;
+            if (
+                vscode.workspace
+                    .getConfiguration('ownobjectscriptextension.create')
+                    .get('AskForPackageFirst')
+            ) {
+                packageName = await vscode.window.showInputBox({
+                    placeHolder: 'Package',
+                });
+                if (packageName == undefined) return;
+                className = await vscode.window.showInputBox({
+                    placeHolder: 'Class Name',
+                });
+                if (className == undefined) return;
+            } else {
+                className = await vscode.window.showInputBox({
+                    placeHolder: 'Class Name',
+                });
+                if (className == undefined) return;
+                packageName = await vscode.window.showInputBox({
+                    placeHolder: 'Package',
+                });
+                if (packageName == undefined) return;
+            }
 
             let text = undefined;
 
