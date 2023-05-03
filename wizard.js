@@ -357,8 +357,48 @@ async function createBusinessOperation(packageName, className) {
     return text;
 }
 
+async function createMessage(packageName, className) {
+    let kind = await vscode.window.showQuickPick(['Request', 'Response'], {
+        placeHolder: 'Message Type:',
+    });
+    if (kind == undefined) return undefined;
+
+    let properties = '';
+
+    while (true) {
+        //property Name
+        let propName = await vscode.window.showInputBox({
+            placeHolder: 'Property Name (leave empty to exit)',
+        });
+        if (propName == undefined) return undefined;
+        if (propName == '') {
+            break;
+        }
+        //Method Name
+        let propType = await vscode.window.showInputBox({
+            placeHolder: 'Property Type',
+        });
+        if (propType == undefined) return undefined;
+
+        properties += 'Property ' + propName + ' As ' + propType + ';\n\n';
+    }
+
+    let text =
+        'Class ' +
+        packageName +
+        '.' +
+        className +
+        ' Extends ' +
+        (kind == 'Request' ? 'Ens.Request' : 'Ens.Response') +
+        ' \n{ \n\n' +
+        properties +
+        '}';
+    return text;
+}
+
 module.exports = {
     createClass,
     createBusinessService,
     createBusinessOperation,
+    createMessage,
 };

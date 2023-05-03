@@ -597,7 +597,9 @@ function activate(context) {
         async function () {
             //Get workspace folder
             if (vscode.workspace.workspaceFolders.length == 0) {
-                vscode.window.showErrorMessage('Open a folder!');
+                vscode.window.showErrorMessage(
+                    'Open a folder in your workspace!'
+                );
                 return;
             }
             let workspacefolderUri = undefined;
@@ -609,7 +611,7 @@ function activate(context) {
                 let choice = undefined;
                 await vscode.window
                     .showQuickPick(wsfList, {
-                        placeHolder: 'Select a workspace folder:',
+                        placeHolder: 'Select a folder:',
                     })
                     .then(
                         (value) => {
@@ -640,8 +642,13 @@ function activate(context) {
             let kind = undefined;
             await vscode.window
                 .showQuickPick(
-                    ['Class', 'Business Service', 'Business Operation'],
-                    { placeHolder: 'What do you want to generate?' }
+                    [
+                        'Class',
+                        'Business Service',
+                        'Business Operation',
+                        'Message',
+                    ],
+                    { placeHolder: 'New' }
                 )
                 .then(
                     (value) => {
@@ -654,6 +661,7 @@ function activate(context) {
                     }
                 );
             if (kind == undefined) return;
+            // get class name and package
             let className = await vscode.window.showInputBox({
                 placeHolder: 'Class Name',
             });
@@ -665,21 +673,29 @@ function activate(context) {
 
             let text = undefined;
 
-            //class
-            if (kind == 'Class') {
-                text = await wizard.createClass(className, packageName);
-            }
-            if (kind == 'Business Service') {
-                text = await wizard.createBusinessService(
-                    className,
-                    packageName
-                );
-            }
-            if (kind == 'Business Operation') {
-                text = await wizard.createBusinessOperation(
-                    className,
-                    packageName
-                );
+            // get the code
+            switch (kind) {
+                case 'Class':
+                    text = await wizard.createClass(className, packageName);
+                    break;
+                case 'Business Service':
+                    text = await wizard.createBusinessService(
+                        className,
+                        packageName
+                    );
+                    break;
+                case 'Business Operation':
+                    text = await wizard.createBusinessOperation(
+                        className,
+                        packageName
+                    );
+                    break;
+                case 'Message':
+                    text = await wizard.createMessage(className, packageName);
+                    break;
+                default:
+                    vscode.window.showErrorMessage('Something went wrong!');
+                    return;
             }
 
             if (text == undefined) return;
