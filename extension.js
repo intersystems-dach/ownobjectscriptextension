@@ -693,22 +693,27 @@ function activate(context) {
             // get the code
             switch (kind) {
                 case 'Class':
-                    text = await wizard.createClass(className, packageName);
+                    text = await wizard.createClass(packageName, className);
                     break;
                 case 'Business Service':
                     text = await wizard.createBusinessService(
+                        packageName,
                         className,
-                        packageName
+                        vscode.workspace
+                            .getConfiguration(
+                                'ownobjectscriptextension.create.service'
+                            )
+                            .get('AddTargetConfigNames')
                     );
                     break;
                 case 'Business Operation':
                     text = await wizard.createBusinessOperation(
-                        className,
-                        packageName
+                        packageName,
+                        className
                     );
                     break;
                 case 'Message':
-                    text = await wizard.createMessage(className, packageName);
+                    text = await wizard.createMessage(packageName, className);
                     break;
                 default:
                     vscode.window.showErrorMessage('Something went wrong!');

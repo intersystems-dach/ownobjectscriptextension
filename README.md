@@ -7,11 +7,11 @@ A [Visual Studio Code](https://code.visualstudio.com/) extension that supplies t
 ---
 
 -   [Features](#features)
-    -   [Create New Class](#create-new-class)
+    -   [Create New Class](#create-new-class-_beta_)
     -   [Add ObjectScript Modifier](#add-objectscript-modifier)
     -   [Add Method Description Template](#add-method-description-template)
     -   [Make Select Statement](#make-select-statement)
-    -   [Translate Embedded Python _BETA_](#translate-embedded-python-_beta_)
+    -   [Translate Embedded Python](#translate-embedded-python-_beta_)
 -   [Requirements](#requirements)
 -   [Installation](#installation)
 -   [Workspace](#workspace)
@@ -24,6 +24,7 @@ A [Visual Studio Code](https://code.visualstudio.com/) extension that supplies t
 -   [Configuration](#configuration)
     -   [Sql](#sql)
     -   [Comment](#comment)
+    -   [Create](#create)
 -   [Bugs](#bugs)
 -   [Release Notes](#release-notes)
 
@@ -31,11 +32,13 @@ A [Visual Studio Code](https://code.visualstudio.com/) extension that supplies t
 
 ## Features
 
-### `Create New Class`
+### `Create New Class` _BETA_
 
 Creates a new ObjectScript Class, Message, Business Service or Business Operation similar to the InterSystems Studio Wizard. Just execute the command and follow the instructions.
 
 ![DemoCreateNewClass](resources/DemoCreateNewClass.gif)
+
+> This feature is still in beta.
 
 ### `Add ObjectScript Modifier`
 
@@ -69,7 +72,7 @@ Translate an ObjectSCript Method to embedded python. Will generate a new method 
 
 ![demoTranslateEmbeddedPython](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoTranslateEmbeddedPython.gif)
 
-> **This feature is still in beta.**
+> This feature is still in beta.
 
 ---
 
@@ -103,7 +106,7 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 
 ### Own ObjectScript Create
 
--   `Create New Class`: Creates a new ObjectScript class. See [here](#create-new-class) for more information.
+-   `Create New Class`: Creates a new ObjectScript class. See [here](#create-new-class-beta) for more information.
 
 ### Own ObjectScript Modifier
 
@@ -148,6 +151,7 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 ### Create
 
 -   `Ask For Package First`: Set if the extension should ask for the package first (Default: _disabled_).
+-   `Service: Add Target Config Names`: If enabled a property called `TargetConfigNames` will be added to your service, that represent the business partners inside of the production. (Default: _disabled_).
 
 ---
 
@@ -159,9 +163,9 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
-### [v0.0.13](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.13)
+### [v0.0.14](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.14)
 
--   Command `Create New Class` added
+-   Configuartion `Create > Service: Add Target Config Names` added
 
 ---
 

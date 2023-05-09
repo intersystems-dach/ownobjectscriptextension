@@ -70,7 +70,11 @@ async function createClass(packageName, className) {
  * @param {string} className The class name
  * @returns {Promise<string>} The class text
  */
-async function createBusinessService(packageName, className) {
+async function createBusinessService(
+    packageName,
+    className,
+    addTargetConfigNames
+) {
     // TODO add types of method parameters dependend of the adapter
     const inboundAdapterSuggestion = [
         'None',
@@ -123,6 +127,17 @@ async function createBusinessService(packageName, className) {
     } else {
         inboundAdapter = 'Parameter ADAPTER = "' + inboundAdapter + '";';
     }
+
+    let onGetConnectionMethod =
+        '/// Return an array of connections for drawing lines on the config diagram\nClassMethod OnGetConnections(Output pArray As %String, pItem As Ens.Config.Item)\n{\n	Do ##super(.pArray,pItem)\n	If pItem.GetModifiedSetting("TargetConfigNames",.tValue) {\n		For i=1:1:$L(tValue,",") { Set tOne=$ZSTRIP($P(tValue,",",i),"<>W")  Continue:""=tOne  Set pArray(tOne)="" }\n	}\n}';
+
+    let targetConfigNamesProperty =
+        '/// Configuration item(s) to which to send file stream messages\nProperty TargetConfigNames As %String(MAXLEN = 1000);\n\nParameter SETTINGS = "TargetConfigNames:Basic:selector?multiSelect=1&context={Ens.ContextSearch/ProductionItems?targets=1&productionName=@productionId}";\n\n';
+
+    let onProcessInputImpl = addTargetConfigNames
+        ? '   #dim tSC As %Status = $$$OK\n   #dim pRequest As Ens.Request\n\n   // TODO\n\n   For iTarget=1:1:$L(..TargetConfigNames, ",") {\n      Set tOneTarget=$ZSTRIP($P(..TargetConfigNames,",",iTarget),"<>W")\n      Continue:""=tOneTarget\n      $$$sysTRACE("Sending message to \'"_tOneTarget_"\'")\n      Set tSC = ..SendRequestAsync(tOneTarget, pRequest)\n   }\n\n   Quit tSC'
+        : '	Quit $$$ERROR($$$NotImplemented)';
+
     let text =
         'Class ' +
         packageName +
@@ -131,8 +146,13 @@ async function createBusinessService(packageName, className) {
         ' Extends Ens.BusinessService' +
         ' \n{ \n\n' +
         inboundAdapter +
+        (addTargetConfigNames ? targetConfigNamesProperty : '') +
         '\n\nMethod OnProcessInput(pInput As %RegisteredObject, Output pOutput As %RegisteredObject) As %Status\n' +
-        '{\n\n	Quit $$$ERROR($$$NotImplemented)\n}\n\n}';
+        '{\n' +
+        onProcessInputImpl +
+        '\n}\n' +
+        (addTargetConfigNames ? onGetConnectionMethod : '') +
+        '\n}';
     return text;
 }
 

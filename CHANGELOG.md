@@ -2,6 +2,12 @@
 
 ---
 
+## [v0.0.14](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.14) (2023-5-9)
+
+-   Configuartion `Create > Service: Add Target Config Names` added
+
+---
+
 ## [v0.0.13](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.13) (2023-5-3)
 
 -   Command `Create New Class` added
