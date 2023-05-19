@@ -8,14 +8,12 @@
 </div>
 
 <div align="center">
-<br />
 
 [![current release](https://img.shields.io/github/v/release/phil1436/ownobjectscriptextension?display_name=tag)](https://github.com/phil1436/ownobjectscriptextension/releases)
 [![license](https://img.shields.io/github/license/phil1436/ownobjectscriptextension)](https://github.com/phil1436/ownobjectscriptextension/blob/master/LICENSE)
 [![stars](https://img.shields.io/github/stars/phil1436/ownobjectscriptextension)](https://github.com/phil1436/ownobjectscriptextension/stargazers)
 ![last commit](https://img.shields.io/github/last-commit/phil1436/ownobjectscriptextension)
 
-<br />
 </div>
 
 ---
