@@ -1,8 +1,20 @@
-<img src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/logo.png" width="30%"/>
+<div align="center">
+    <br />
+    <img src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/logo.png" width="20%"/>
+    <h1>OwnObjectScriptExtension</h1>
+    <p>
+    A <a href = "https://code.visualstudio.com/">Visual Studio Code</a> extension that supplies tools for <a href="https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_INTRO">InterSystems ObjectScript</a>.
+    </p>
+</div>
 
-# OwnObjectScriptExtension
+<div align="center">
 
-A [Visual Studio Code](https://code.visualstudio.com/) extension that supplies tools for [InterSystems ObjectScript](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_INTRO).
+[![current release](https://img.shields.io/github/v/release/phil1436/ownobjectscriptextension?display_name=tag)](https://github.com/phil1436/ownobjectscriptextension/releases)
+[![license](https://img.shields.io/github/license/phil1436/ownobjectscriptextension)](https://github.com/phil1436/ownobjectscriptextension/blob/master/LICENSE)
+[![stars](https://img.shields.io/github/stars/phil1436/ownobjectscriptextension)](https://github.com/phil1436/ownobjectscriptextension/stargazers)
+![last commit](https://img.shields.io/github/last-commit/phil1436/ownobjectscriptextension)
+
+</div>
 
 ---
 
