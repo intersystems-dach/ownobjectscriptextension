@@ -15,6 +15,7 @@
 [![stars](https://img.shields.io/github/stars/phil1436/ownobjectscriptextension)](https://github.com/phil1436/ownobjectscriptextension/stargazers)
 ![last commit](https://img.shields.io/github/last-commit/phil1436/ownobjectscriptextension)
 
+<br />
 </div>
 
 ---
