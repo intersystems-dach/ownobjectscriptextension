@@ -1,6 +1,6 @@
 <div align="center">
     <br />
-    <img src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/logo.png" width="20%"/>
+    <img src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/logo.png" alt="OwnObjectScriptExtensionLogo" width="30%"/>
     <h1>OwnObjectScriptExtension</h1>
     <p>
     A <a href = "https://code.visualstudio.com/">Visual Studio Code</a> extension that supplies tools for <a href="https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_INTRO">InterSystems ObjectScript</a>.
@@ -8,12 +8,18 @@
 </div>
 
 <div align="center">
-
-[![current release](https://img.shields.io/github/v/release/phil1436/ownobjectscriptextension?display_name=tag)](https://github.com/phil1436/ownobjectscriptextension/releases)
-[![license](https://img.shields.io/github/license/phil1436/ownobjectscriptextension)](https://github.com/phil1436/ownobjectscriptextension/blob/master/LICENSE)
-[![stars](https://img.shields.io/github/stars/phil1436/ownobjectscriptextension)](https://github.com/phil1436/ownobjectscriptextension/stargazers)
-![last commit](https://img.shields.io/github/last-commit/phil1436/ownobjectscriptextension)
-
+    <a href="https://github.com/phil1436/ownobjectscriptextension/releases">
+        <img src= "https://img.shields.io/github/v/release/phil1436/ownobjectscriptextension?display_name=tag" alt="current release">
+    </a>
+    <a href="https://github.com/phil1436/ownobjectscriptextension/blob/master/LICENSE">
+        <img src="https://img.shields.io/github/license/phil1436/ownobjectscriptextension" alt="license">
+    </a>
+    <a href="https://github.com/phil1436/ownobjectscriptextension/stargazers">
+        <img src="https://img.shields.io/github/stars/phil1436/ownobjectscriptextension" alt="stars">
+    </a>
+    <a href="https://github.com/phil1436/ownobjectscriptextension/commits/master">
+        <img src="https://img.shields.io/github/last-commit/phil1436/ownobjectscriptextension" alt="last commit">
+    </a>
 </div>
 
 ---
