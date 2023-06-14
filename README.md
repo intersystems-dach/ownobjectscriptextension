@@ -55,7 +55,7 @@
 
 Creates a new ObjectScript Class, Message, Business Service or Business Operation similar to the InterSystems Studio Wizard. Just execute the command and follow the instructions.
 
-![DemoCreateNewClass](resources/DemoCreateNewClass.gif)
+![DemoCreateNewClass](https://raw.githubusercontent.com/phil1436/ownobjectscriptextension/master/resources/DemoCreateNewClass.gif)
 
 > This feature is still in beta.
 
@@ -178,7 +178,7 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 The extension will add a new color theme called _InterSystems Real Dark_. You can change it via `File > Preferences > Theme > Color Theme`.
 
-![InterSystemsRealDarkExample](resources/InterSystemsRealDarkExample.png)
+![InterSystemsRealDarkExample](https://raw.githubusercontent.com/phil1436/ownobjectscriptextension/master/resources/InterSystemsRealDarkExample.png)
 
 ---
 
