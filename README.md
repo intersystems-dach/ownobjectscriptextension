@@ -25,11 +25,11 @@
 ---
 
 -   [Features](#features)
-    -   [Create New Class](#create-new-class-_beta_)
+    -   [Create New Wizard _BETA_](#create-new-wizard-_beta_)
     -   [Add ObjectScript Modifier](#add-objectscript-modifier)
     -   [Add Method Description Template](#add-method-description-template)
     -   [Make Select Statement](#make-select-statement)
-    -   [Translate Embedded Python](#translate-embedded-python-_beta_)
+    -   [Translate Embedded Python _BETA_](#translate-embedded-python-_beta_)
 -   [Requirements](#requirements)
 -   [Installation](#installation)
 -   [Workspace](#workspace)
@@ -43,6 +43,7 @@
     -   [Sql](#sql)
     -   [Comment](#comment)
     -   [Create](#create)
+-   [Color Theme](#color-theme)
 -   [Bugs](#bugs)
 -   [Release Notes](#release-notes)
 
@@ -50,7 +51,7 @@
 
 ## Features
 
-### `Create New Class` _BETA_
+### `Create New Wizard` _BETA_
 
 Creates a new ObjectScript Class, Message, Business Service or Business Operation similar to the InterSystems Studio Wizard. Just execute the command and follow the instructions.
 
@@ -124,7 +125,7 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 
 ### Own ObjectScript Create
 
--   `Create New Class`: Creates a new ObjectScript class. See [here](#create-new-class-beta) for more information.
+-   `Create New Wizard`: Creates a new ObjectScript class. See [here](#create-new-wizard-beta) for more information.
 
 ### Own ObjectScript Modifier
 
@@ -173,6 +174,14 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 ---
 
+## Color Theme
+
+The extension will add a new color theme called _InterSystems Real Dark_. You can change it via `File > Preferences > Theme > Color Theme`.
+
+![InterSystemsRealDarkExample](resources/InterSystemsRealDarkExample.png)
+
+---
+
 ## Bugs
 
 -   _no known bugs_
@@ -181,13 +190,15 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
-### [v0.0.14](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.14)
+### [v0.0.15](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.15)
 
--   Configuartion `Create > Service: Add Target Config Names` added
+-   Color Theme `InterSystems Real Dark` added
+-   Command `Create New Class` renamed to `Create New Wizard`
+-   Command `Create New Wizard` extended
 
 ---
 
-by Philipp B.
+by [Philipp B.](https://github.com/phil1436)
 
 powered by [InterSystems](https://www.intersystems.com/).
 

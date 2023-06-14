@@ -5,7 +5,7 @@
     "author": "Philipp B.",
     "publisher": "Philipp B.",
     "license": "MIT",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "repository": {
         "type": "github",
         "url": "https://github.com/phil1436/ownobjectscriptextension"
@@ -85,7 +85,7 @@
             },
             {
                 "command": "ownobjectscriptextension.createNewClass",
-                "title": "Create New Class",
+                "title": "Create New Wizard",
                 "category": "Own ObjectScript Create"
             }
         ],
@@ -124,7 +124,14 @@
                     "markdownDescription": "Sets the line count between added comments for `Own ObjectScript Comment: Add Inline Comments`"
                 }
             }
-        }
+        },
+        "themes": [
+            {
+                "label": "InterSystems Real Dark",
+                "uiTheme": "vs-dark",
+                "path": "./themes/intersystems-real-dark.json"
+            }
+        ]
     },
     "scripts": {
         "lint": "eslint .",

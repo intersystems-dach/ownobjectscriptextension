@@ -56,7 +56,7 @@ try {
  */
 function activate(context) {
     //Add ObjectScript Modifier
-    let disposable = vscode.commands.registerCommand(
+    vscode.commands.registerCommand(
         'ownobjectscriptextension.addObjectScriptModifier',
         function () {
             if (!preConditions()) return;
@@ -737,43 +737,32 @@ function activate(context) {
             await vscode.window.showTextDocument(doc, { preview: false });
         }
     );
-
-    /* const provider2 = vscode.languages.registerCompletionItemProvider(
-        'plaintext',
+    /* const completionProvider = vscode.languages.registerCompletionItemProvider(
+        'javascript',
         {
-            provideCompletionItems(
-                document = vscode.window.activeTextEditor.document,
-                position = vscode.window.activeTextEditor.selection.active
-            ) {
-                // get all text until the `position` and check if it reads `console.`
-                // and if so then complete if `log`, `warn`, and `error`
-                const linePrefix = document
-                    .lineAt(position)
-                    .text.substr(0, position.character);
-                if (!linePrefix.endsWith('console.')) {
+            provideCompletionItems(document, position) {
+                // Check if the current word is 'hello'
+                const wordRange = document.getWordRangeAtPosition(position);
+                const currentWord = wordRange
+                    ? document.getText(wordRange)
+                    : '';
+                console.log(currentWord);
+                if (currentWord !== 'hello') {
                     return undefined;
                 }
 
-                return [
-                    new vscode.CompletionItem(
-                        'log',
-                        vscode.CompletionItemKind.Method
-                    ),
-                    new vscode.CompletionItem(
-                        'warn',
-                        vscode.CompletionItemKind.Method
-                    ),
-                    new vscode.CompletionItem(
-                        'error',
-                        vscode.CompletionItemKind.Method
-                    ),
-                ];
+                // Return a completion item for 'hello'
+                const completionItem = new vscode.CompletionItem(
+                    'hello',
+                    vscode.CompletionItemKind.Keyword
+                );
+                completionItem.insertText = 'Hello, world!';
+                return [completionItem];
             },
         },
-        '.' // triggered whenever a '.' is being typed
-    ); */
-
-    context.subscriptions.push(disposable);
+        'h' // Specify the trigger character for the completion provider
+    );
+    context.subscriptions.push(completionProvider); */
 }
 
 // This method is called when your extension is deactivated

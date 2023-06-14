@@ -77,38 +77,154 @@ async function createBusinessService(
 ) {
     // TODO add types of method parameters dependend of the adapter
     const inboundAdapterSuggestion = [
-        'None',
-        'Ens.Enterprise.MsgBank.BankTCPAdapter',
-        'Ens.InboundAdapter',
-        'EnsLib.CloudStorage.InboundAdapter',
-        'EnsLib.EDI.X12.Adapter.TCPInboundAdapter',
-        'EnsLib.EMail.InboundAdapter',
-        'EnsLib.File.InboundAdapter',
-        'EnsLib.FTP.InboundAdapter',
-        'EnsLib.Gateway.ServiceAdapter',
-        'EnsLib.HTTP.InboundAdapter',
-        'EnsLib.JavaGateway.InboundAdapter',
-        'EnsLib.JMS.InboundAdapter',
-        'EnsLib.Kafka.InboundAdapter',
-        'EnsLib.MFT.InboundAdapter',
-        'EnsLib.MQSeries.InboundAdapter',
-        'EnsLib.MQTT.Adapter.Inbound',
-        'EnsLib.PEX.InboundAdapter',
-        'EnsLib.Pipe.InboundAdapter',
-        'EnsLib.SOAP.InboundAdapter',
-        'EnsLib.SQL.InboundAdapter',
-        'EnsLib.SQL.InboundProcAdapter',
-        'EnsLib.TCP.CountedInboundAdapter',
-        'EnsLib.TCP.CountedXMLInboundAdapter',
-        'EnsLib.TCP.DuplexAdapter',
-        'EnsLib.TCP.FramedInboundAdapter',
-        'EnsLib.TCP.InboundAdapter',
-        'EnsLib.TCP.TextLineInboundAdapter',
-        'EnsLib.UDP.InboundAdapter',
-        'Costum',
+        {
+            name: 'None',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'Ens.Enterprise.MsgBank.BankTCPAdapter',
+            input: '%Stream.Object',
+            output: '%String',
+        },
+        {
+            name: 'Ens.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.CloudStorage.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.EDI.X12.Adapter.TCPInboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.EMail.InboundAdapter',
+            input: '%Net.MailMessage',
+            output: '',
+        },
+        {
+            name: 'EnsLib.File.InboundAdapter',
+            input: '%Stream.Object',
+            output: '',
+        },
+        {
+            name: 'EnsLib.FTP.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.Gateway.ServiceAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.HTTP.InboundAdapter',
+            input: '%Stream.Object',
+            output: '%Stream.Object',
+        },
+        {
+            name: 'EnsLib.JavaGateway.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.JMS.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.Kafka.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.MFT.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.MQSeries.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.MQTT.Adapter.Inbound',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.PEX.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.Pipe.InboundAdapter',
+            input: '%Stream.Object',
+            output: '',
+        },
+        {
+            name: 'EnsLib.SOAP.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.SQL.InboundAdapter',
+            input: 'EnsLib.SQL.Snapshot',
+            output: '',
+        },
+        {
+            name: 'EnsLib.SQL.InboundProcAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.CountedInboundAdapter',
+            input: '%Stream.Object',
+            output: '%Stream.Object',
+        },
+        {
+            name: 'EnsLib.TCP.CountedXMLInboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.DuplexAdapter',
+            input: 'Ens.StringContainer',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.FramedInboundAdapter',
+            input: 'Ens.StreamContainer',
+            output: 'Ens.StreamContainer',
+        },
+        {
+            name: 'EnsLib.TCP.InboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.TextLineInboundAdapter',
+            input: 'Ens.StringContainer',
+            output: 'Ens.StringContainer',
+        },
+        {
+            name: 'EnsLib.UDP.InboundAdapter',
+            input: 'Ens.StringContainer',
+            output: '',
+        },
+        {
+            name: 'Costum',
+            input: '',
+            output: '',
+        },
     ];
     let inboundAdapter = await vscode.window.showQuickPick(
-        inboundAdapterSuggestion,
+        inboundAdapterSuggestion.map((x) => x.name),
         { placeHolder: 'Select a InboundAdapter:' }
     );
     if (inboundAdapter == undefined) return undefined;
@@ -122,6 +238,16 @@ async function createBusinessService(
             inboundAdapter = 'None';
         }
     }
+
+    let inboundAdapterObj = { name: inboundAdapter, input: '', output: '' };
+
+    for (let i = 0; i < inboundAdapterSuggestion.length; i++) {
+        if (inboundAdapterSuggestion[i].name == inboundAdapter) {
+            inboundAdapterObj = inboundAdapterSuggestion[i];
+            break;
+        }
+    }
+
     if (inboundAdapter == 'None') {
         inboundAdapter = '';
     } else {
@@ -147,7 +273,15 @@ async function createBusinessService(
         ' \n{ \n\n' +
         inboundAdapter +
         (addTargetConfigNames ? targetConfigNamesProperty : '') +
-        '\n\nMethod OnProcessInput(pInput As %RegisteredObject, Output pOutput As %RegisteredObject) As %Status\n' +
+        '\n\nMethod OnProcessInput(pInput As ' +
+        (inboundAdapterObj.input === ''
+            ? '%RegisteredObject'
+            : inboundAdapterObj.input) +
+        ', Output pOutput As ' +
+        (inboundAdapterObj.output === ''
+            ? '%RegisteredObject'
+            : inboundAdapterObj.output) +
+        ') As %Status\n' +
         '{\n' +
         onProcessInputImpl +
         '\n}\n' +
@@ -164,46 +298,191 @@ async function createBusinessService(
  */
 async function createBusinessOperation(packageName, className) {
     //Adapter
+
     const outboundAdapterSuggestion = [
-        'None',
-        'Ens.Enterprise.MsgBank.ClientTCPAdapter',
-        'Ens.AmazonCloudWatch.OutboundAdapter',
-        'Ens.AmazonCloudWatchLogs.OutboundAdapter',
-        'Ens.AmazonSNS.OutboundAdapter',
-        'EnsLib.CloudStorage.OutboundAdapter',
-        'EnsLib.EDI.X12.Adapter.TCPOutboundAdapter',
-        'EnsLib.EMail.OutboundAdapter',
-        'EnsLib.File.OutboundAdapter',
-        'EnsLib.FTP.OutboundAdapter',
-        'EnsLib.HTTP.OutboundAdapter',
-        'EnsLib.JavaGateway.OutboundAdapter',
-        'EnsLib.JMS.OutboundAdapter',
-        'EnsLib.Kafka.OutboundAdapter',
-        'EnsLib.LDAP.Adapter.Outbound',
-        'EnsLib.LDAP.OutboundAdapter',
-        'EnsLib.MFT.Adapter.Outbound',
-        'EnsLib.MQSeries.OutboundAdapter',
-        'EnsLib.MQTT.Adapter.Outbound',
-        'EnsLib.PEX.OutboundAdapter',
-        'EnsLib.Pipe.OutboundAdapter',
-        'EnsLib.SAP.OutboundAdapter',
-        'EnsLib.Siebel.HTTPOutboundAdapter',
-        'EnsLib.SOAP.CST.OutboundAdapter',
-        'EnsLib.SOAP.OutboundAdapter',
-        'EnsLib.SQL.OutboundAdapter',
-        'EnsLib.TCP.CountedOutboundAdapter',
-        'EnsLib.TCP.CountedXMLOutboundAdapter',
-        'EnsLib.TCP.DuplexAdapter',
-        'EnsLib.TCP.FramedOutboundAdapter',
-        'EnsLib.TCP.OutboundAdapter',
-        'EnsLib.TCP.TextLineOutboundAdapter',
-        'EnsLib.Telnet.OutboundAdapter',
-        'EnsLib.TN3270.OutboundAdapter',
-        'EnsLib.UDP.OutboundAdapter',
-        'Costum',
+        {
+            name: 'None',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'Ens.Enterprise.MsgBank.ClientTCPAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'Ens.AmazonCloudWatch.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'Ens.AmazonCloudWatchLogs.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'Ens.AmazonSNS.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.CloudStorage.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.EDI.X12.Adapter.TCPOutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.EMail.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.File.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.FTP.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.HTTP.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.JavaGateway.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.JMS.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.Kafka.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.LDAP.Adapter.Outbound',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.LDAP.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.MFT.Adapter.Outbound',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.MQSeries.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.MQTT.Adapter.Outbound',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.PEX.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.Pipe.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.SAP.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.Siebel.HTTPOutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.SOAP.CST.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.SOAP.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.SQL.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.CountedOutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.CountedXMLOutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.DuplexAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.FramedOutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TCP.TextLineOutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.Telnet.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.TN3270.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'EnsLib.UDP.OutboundAdapter',
+            input: '',
+            output: '',
+        },
+        {
+            name: 'Costum',
+            input: '',
+            output: '',
+        },
     ];
     let outboundAdapter = await vscode.window.showQuickPick(
-        outboundAdapterSuggestion,
+        outboundAdapterSuggestion.map((x) => x.name),
         { placeHolder: 'Select a OutboundAdapter:' }
     );
     if (outboundAdapter == undefined) return undefined;

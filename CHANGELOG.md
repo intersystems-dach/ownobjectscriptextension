@@ -2,6 +2,14 @@
 
 ---
 
+## [v0.0.15](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.15) (2023-6-14)
+
+-   Color Theme `InterSystems Real Dark` added
+-   Command `Create New Class` renamed to `Create New Wizard`
+-   Command `Create New Wizard` extended
+
+---
+
 ## [v0.0.14](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.14) (2023-5-9)
 
 -   Configuartion `Create > Service: Add Target Config Names` added
