@@ -9,6 +9,8 @@ vsc-extension-quickstart.md
 **/*.map
 **/.eslintrc.json
 desktop.ini
-ideas.txt
+ideas.md
 **/*.gif
 resources/demoAddDescriptionClassReference.png
+resources/InterSystemsRealDarkExample.png
+**.ico

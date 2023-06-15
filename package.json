@@ -1,11 +1,11 @@
 {
     "name": "ownobjectscriptextension",
     "displayName": "OwnObjectScriptExtension",
-    "description": "A Visual Studio Code extension that supplies tools for InterSystems ObjectScript. Adds ObjectScript Modifiers, Keywords, Inline Comments, Method Description Templates, Select Statements and Translates Embedded Python.",
+    "description": "A Visual Studio Code extension that supplies tools for InterSystems ObjectScript.",
     "author": "Philipp B.",
-    "publisher": "Philipp B.",
+    "publisher": "PhilippB",
     "license": "MIT",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "repository": {
         "type": "github",
         "url": "https://github.com/phil1436/ownobjectscriptextension"
