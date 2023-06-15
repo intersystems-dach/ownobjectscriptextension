@@ -27,7 +27,7 @@
 -   [Features](#features)
     -   [Create New Wizard _BETA_](#create-new-wizard-_beta_)
     -   [Add ObjectScript Modifier](#add-objectscript-modifier)
-    -   [Add Method Description Template](#add-method-description-template)
+    -   [Add Method Description](#add-method-description)
     -   [Make Select Statement](#make-select-statement)
     -   [Translate Embedded Python _BETA_](#translate-embedded-python-_beta_)
 -   [Requirements](#requirements)
@@ -59,15 +59,15 @@ Creates a new ObjectScript Class, Message, Business Service or Business Operatio
 
 > This feature is still in beta.
 
-### `Add ObjectScript Modifier`
+<!-- ### `Add ObjectScript Modifier`
 
 This command automatically adds `Set`, `Do` and `Write` to your InterSystems ObjectScript code.
 
 ![demo](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demo.gif)
 
-> Tip: You can use IntelliSense even if you have errors in your code.
+> Tip: You can use IntelliSense even if you have errors in your code. -->
 
-### `Add Method Description Template`
+### `Add Method Description`
 
 Generates description templates for your Methods. Just put your cursor in the Method and execute this command. Only works with `Method` and `ClassMethod`.
 
@@ -138,7 +138,7 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 
 ### Own ObjectScript Comment
 
--   `Add Method Description Template`: Adds a description template to your Method or ClassMethod. See [here](#add-method-description-template) for more information.
+-   `Add Method Description`: Adds a description template to your Method or ClassMethod. See [here](#add-method-description) for more information.
 -   `Add Inline Comments`: Adds a comment in the current Method every specified count of lines without any comment (Default is every 5 lines).
 -   `Edit Method Description Template`: Opens the _MethodDescriptionTemplate.json_ file so can edit the method template. Reload Window after editing.
 
@@ -190,11 +190,11 @@ The extension will add a new color theme called _InterSystems Real Dark_. You ca
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
-### [v0.0.15](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.15)
+### [v0.0.16](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.16)
 
--   Color Theme `InterSystems Real Dark` added
--   Command `Create New Class` renamed to `Create New Wizard`
--   Command `Create New Wizard` extended
+-   Refactoring
+-   Bug fixes
+-   Command `Add Method Description Template` renamed to `Add Method Description`
 
 ---
 
@@ -202,4 +202,4 @@ by [Philipp B.](https://github.com/phil1436)
 
 powered by [InterSystems](https://www.intersystems.com/).
 
-_This application is **not** supported by InterSystems Corporation._
+_This application is **not** supported by InterSystems Corporation. Please be notified that you use it at your own responsibility._

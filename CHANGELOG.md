@@ -2,6 +2,14 @@
 
 ---
 
+## [v0.0.16](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.16) (2023-6-15)
+
+-   Refactoring
+-   Bug fixes
+-   Command `Add Method Description Template` renamed to `Add Method Description`
+
+---
+
 ## [v0.0.15](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.15) (2023-6-14)
 
 -   Color Theme `InterSystems Real Dark` added

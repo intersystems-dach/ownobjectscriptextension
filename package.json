@@ -35,7 +35,7 @@
         "onCommand:ownobjectscriptextension.editMethodDescriptionTemplate",
         "ownobjectscriptextension.createNewClass"
     ],
-    "main": "./extension.js",
+    "main": "./src/extension.js",
     "contributes": {
         "commands": [
             {
@@ -60,7 +60,7 @@
             },
             {
                 "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
-                "title": "Add Method Description Template",
+                "title": "Add Method Description",
                 "category": "Own ObjectScript Comment"
             },
             {
@@ -130,6 +130,11 @@
                 "label": "InterSystems Real Dark",
                 "uiTheme": "vs-dark",
                 "path": "./themes/intersystems-real-dark.json"
+            },
+            {
+                "label": "InterSystems Funky Dark",
+                "uiTheme": "vs-dark",
+                "path": "./themes/intersystems-funky-dark.json"
             }
         ]
     },
