@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 
 const Modifier = require('./commands/Modifier');
-const Comment = require('./commands/Comment');
+const Comment = require('./commands/Documentation');
 const SQL = require('./commands/SQL');
 const Translate = require('./commands/Translate');
 const Create = require('./commands/Create');

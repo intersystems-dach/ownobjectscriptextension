@@ -1,6 +1,22 @@
 const vscode = require('vscode');
 const wizard = require('../wizard');
 const { TextEncoder } = require('util');
+const path = require('path');
+const fs = require('fs');
+
+/* async function createPanel() {
+    const panel = vscode.window.createWebviewPanel(
+        'create New Wizard',
+        'Create New Wizard 🔮',
+        { viewColumn: vscode.ViewColumn.One, preserveFocus: false }
+    );
+    panel.webview.html = fs.readFileSync(
+        path.join(__dirname, '..', 'webview', 'index.html'),
+        'utf8'
+    );
+
+    return panel;
+} */
 
 async function createNewClass() {
     //Get workspace folder
@@ -8,6 +24,19 @@ async function createNewClass() {
         vscode.window.showErrorMessage('Open a folder in your workspace!');
         return;
     }
+    /* console.log(
+        vscode.workspace
+            .getConfiguration('ownobjectscriptextension.create')
+            .get('UseWebview')
+    );
+    if (
+        vscode.workspace
+            .getConfiguration('ownobjectscriptextension.create')
+            .get('UseWebview')
+    ) {
+        createPanel();
+        return;
+    } */
     let workspacefolderUri = undefined;
     if (vscode.workspace.workspaceFolders.length > 1) {
         let wsfList = [];
@@ -130,6 +159,28 @@ async function createNewClass() {
 
     let doc = await vscode.workspace.openTextDocument(fileUri); // calls back into the provider
     await vscode.window.showTextDocument(doc, { preview: false });
+    await vscode.window.activeTextEditor.edit(function (editBuilder) {
+        // delete everything in the document
+        let start = new vscode.Position(0, 0);
+        let lastLine = vscode.window.activeTextEditor.document.lineAt(
+            vscode.window.activeTextEditor.document.lineCount - 1
+        );
+        let end = new vscode.Position(
+            vscode.window.activeTextEditor.document.lineCount - 1,
+            lastLine.text.length
+        );
+        let range = new vscode.Range(start, end);
+        editBuilder.delete(range);
+        // write text to document
+        editBuilder.insert(new vscode.Position(0, 0), text);
+    });
+    //Save if option is turned on
+    if (
+        vscode.workspace
+            .getConfiguration('ownobjectscriptextension')
+            .get('SaveFile')
+    )
+        vscode.window.activeTextEditor.document.save();
 }
 
 module.exports = {

@@ -139,7 +139,7 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 
 > Tip: Lines starting with a keyword will be ignored by the command `Add ObjectScript Modifier`.
 
-### Own ObjectScript Comment
+### Own ObjectScript Documentation
 
 -   `Add Method Description`: Adds a description template to your `Method` or `ClassMethod`. See [here](#add-method-description) for more information.
 -   `Edit Method Description Template`: Opens the _MethodDescriptionTemplate.json_ file so you can edit the method template. Reload Window after editing!

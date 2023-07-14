@@ -75,7 +75,6 @@ async function createBusinessService(
     className,
     addTargetConfigNames
 ) {
-    // TODO add types of method parameters dependend of the adapter
     const inboundAdapterSuggestion = [
         {
             name: 'None',
@@ -298,7 +297,6 @@ async function createBusinessService(
  */
 async function createBusinessOperation(packageName, className) {
     //Adapter
-
     const outboundAdapterSuggestion = [
         {
             name: 'None',

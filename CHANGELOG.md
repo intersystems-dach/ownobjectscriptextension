@@ -2,6 +2,13 @@
 
 ---
 
+## [v0.0.17](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.17) (2023-?-?)
+
+-   Bug fixes
+-   Category `Own ObjectScript Comment` renamed to `Own ObjectScript Documentation`
+
+---
+
 ## [v0.0.16](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.16) (2023-6-15)
 
 -   Refactoring

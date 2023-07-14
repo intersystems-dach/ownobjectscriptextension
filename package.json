@@ -5,7 +5,7 @@
     "author": "Philipp B.",
     "publisher": "PhilippB",
     "license": "MIT",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "repository": {
         "type": "github",
         "url": "https://github.com/phil1436/ownobjectscriptextension"
@@ -18,10 +18,8 @@
         "Formatters"
     ],
     "keywords": [
-        "IntelliSense",
         "intersystems",
-        "objectscript",
-        "multi-root ready"
+        "objectscript"
     ],
     "activationEvents": [
         "onCommand:ownobjectscriptextension.addObjectScriptModifier",
@@ -33,7 +31,7 @@
         "onCommand:ownobjectscriptextension.makeSelectStatement",
         "onCommand:ownobjectscriptextension.translateEmbPython",
         "onCommand:ownobjectscriptextension.editMethodDescriptionTemplate",
-        "ownobjectscriptextension.createNewClass"
+        "onCommand:ownobjectscriptextension.createNewClass"
     ],
     "main": "./src/extension.js",
     "contributes": {
@@ -61,17 +59,17 @@
             {
                 "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
                 "title": "Add Method Description",
-                "category": "Own ObjectScript Comment"
+                "category": "Own ObjectScript Documentation"
             },
             {
                 "command": "ownobjectscriptextension.editMethodDescriptionTemplate",
                 "title": "Edit Method Description Template",
-                "category": "Own ObjectScript Comment"
+                "category": "Own ObjectScript Documentation"
             },
             {
                 "command": "ownobjectscriptextension.addInlineComments",
                 "title": "Add Inline Comments",
-                "category": "Own ObjectScript Comment"
+                "category": "Own ObjectScript Documentation"
             },
             {
                 "command": "ownobjectscriptextension.makeSelectStatement",
