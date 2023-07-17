@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const globalFunctions = require('../GlobalFunctions');
+const axios = require('axios');
 
 const WorkspaceManager = require('../WorkspaceManager.js');
 const workspaceManager = new WorkspaceManager();
@@ -220,6 +221,175 @@ function addInlineComments() {
         vscode.window.activeTextEditor.document.save();
 }
 
+function openDocumentation() {
+    if (!globalFunctions.preConditions()) return;
+
+    let selection = vscode.window.activeTextEditor.selection;
+
+    let searchString =
+        vscode.window.activeTextEditor.document.getText(selection);
+    if (selection.isEmpty) {
+        searchString = vscode.window.activeTextEditor.document.getText(
+            vscode.window.activeTextEditor.document.getWordRangeAtPosition(
+                selection.start
+            )
+        );
+    }
+
+    if (
+        searchString.replace(/ /g, '').startsWith('%') &&
+        !searchString.includes('.')
+    ) {
+        searchString = searchString.replace('%', '%Library.');
+    }
+
+    let namespace = '';
+    if (searchString.replace(/ /g, '').startsWith('Ens')) {
+        namespace = 'LIBRARY=ENSLIB&';
+    }
+
+    let baseURL = 'https://docs.intersystems.com/csp/documatic/';
+    let url =
+        baseURL +
+        '%25CSP.Documatic.cls?' +
+        namespace +
+        'CLASSNAME=' +
+        searchString;
+
+    if (
+        vscode.workspace
+            .getConfiguration('ownobjectscriptextension.documentation')
+            .get('OpenInBrowser')
+    ) {
+        vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(url));
+    } else {
+        getHTMLFromURL(url)
+            .then((html) => {
+                if (html) {
+                    html = html.replace(
+                        /href="%25CSP.Documatic.cls/g,
+                        'href="' + baseURL + '%25CSP.Documatic.cls'
+                    );
+                    html = html.replace(
+                        'Sorry, your browser does not support JavaScript or JavaScript is disabled. Please enable JavaScript or use another browser to have a better experience.',
+                        ''
+                    );
+                    html = html.replace(
+                        '</body>',
+                        `
+    <div align="center"><a href="https://philipp-bonin.com/">by Philipp</a></div>
+    <div id="openInBrowser"><a href="${url}">Open in browser</a></div>
+    </body>
+    <style>
+        #openInBrowser {
+            position: fixed;
+            bottom: 0;
+            right: -1px;
+            background: #323694;
+            padding: 10px;
+            border-radius: 5px 0px 0px 0px;
+            z-index: 999;
+            cursor: pointer;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+        }
+        #openInBrowser > a {
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+        }
+        #openInBrowser:hover {
+            background: #00b4ae;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.9);
+        }
+    </style>
+                    `
+                    );
+                    createPanel(html, searchString);
+                } else {
+                    vscode.window
+                        .showErrorMessage(
+                            'HTML not fetched successfully!',
+                            'Open in browser',
+                            'Cancel'
+                        )
+                        .then((value) => {
+                            if (value == 'Open in browser') {
+                                vscode.commands.executeCommand(
+                                    'vscode.open',
+                                    vscode.Uri.parse(url)
+                                );
+                            }
+                        });
+                }
+            })
+            .catch(() => {
+                vscode.window
+                    .showErrorMessage(
+                        'HTML not fetched successfully!',
+                        'Open in browser',
+                        'Cancel'
+                    )
+                    .then((value) => {
+                        if (value == 'Open in browser') {
+                            vscode.commands.executeCommand(
+                                'vscode.open',
+                                vscode.Uri.parse(url)
+                            );
+                        }
+                    });
+            });
+    }
+}
+
+async function createPanel(html, name) {
+    const panel = vscode.window.createWebviewPanel(
+        'ISCClassDocumentation',
+        name,
+        vscode.ViewColumn.Two,
+        {}
+    );
+    panel.webview.html = html;
+
+    return panel;
+}
+
+async function getHTMLFromURL(url) {
+    try {
+        // @ts-ignore
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching HTML:', error.message);
+        return null;
+    }
+}
+
+async function intersystemsWebSearch() {
+    // ask for search string
+    let searchstring = await vscode.window.showInputBox({
+        prompt: 'Enter your InterSystems search',
+        placeHolder: 'InterSystems Search',
+    });
+    if (searchstring == undefined) return;
+
+    if (
+        !searchstring.toLocaleLowerCase().includes('intersystems') &&
+        !searchstring.toLocaleLowerCase().includes('objectscript')
+    ) {
+        searchstring = 'InterSystems ObjectScript ' + searchstring;
+    }
+
+    let url = 'https://www.google.com/search?q=' + searchstring;
+    if (
+        vscode.workspace
+            .getConfiguration('ownobjectscriptextension.documentation')
+            .get('UseDuckDuckGo')
+    ) {
+        url = 'https://www.duckduckgo.com/?q=' + searchstring;
+    }
+    vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(url));
+}
+
 function editMethodDescriptionTemplate() {
     vscode.workspace
         .openTextDocument(vscode.Uri.file(workspaceManager.methodTemplateFile))
@@ -231,5 +401,7 @@ function editMethodDescriptionTemplate() {
 module.exports = {
     addMethodDescriptionTemplate,
     addInlineComments,
+    openDocumentation,
     editMethodDescriptionTemplate,
+    intersystemsWebSearch,
 };

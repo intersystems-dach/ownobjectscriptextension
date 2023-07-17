@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 
 const Modifier = require('./commands/Modifier');
-const Comment = require('./commands/Documentation');
+const Documentation = require('./commands/Documentation');
 const SQL = require('./commands/SQL');
 const Translate = require('./commands/Translate');
 const Create = require('./commands/Create');
@@ -41,19 +41,31 @@ function activate(context) {
     //add method description template
     vscode.commands.registerCommand(
         'ownobjectscriptextension.addMethodDescriptionTemplate',
-        Comment.addMethodDescriptionTemplate
+        Documentation.addMethodDescriptionTemplate
     );
 
     //add inline comments
     vscode.commands.registerCommand(
         'ownobjectscriptextension.addInlineComments',
-        Comment.addInlineComments
+        Documentation.addInlineComments
+    );
+
+    //open intersystems class documentation
+    vscode.commands.registerCommand(
+        'ownobjectscriptextension.openDocumentation',
+        Documentation.openDocumentation
+    );
+
+    //intersystems web search
+    vscode.commands.registerCommand(
+        'ownobjectscriptextension.intersystemsWebSearch',
+        Documentation.intersystemsWebSearch
     );
 
     //open method template file
     vscode.commands.registerCommand(
         'ownobjectscriptextension.editMethodDescriptionTemplate',
-        Comment.editMethodDescriptionTemplate
+        Documentation.editMethodDescriptionTemplate
     );
 
     //make select statement

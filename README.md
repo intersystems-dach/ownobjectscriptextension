@@ -26,10 +26,11 @@
 ---
 
 -   [Features](#features)
+    -   [Open InterSystems Class Documentation](#open-intersystems-class-documentation)
     -   [Add Method Description](#add-method-description)
     -   [Make Select Statement](#make-select-statement)
-    -   [Create New Wizard](#create-new-wizard-_beta_)
-    -   [Translate Embedded Python](#translate-embedded-python-_beta_)
+    -   [Create New Wizard _BETA_](#create-new-wizard-_beta_)
+    -   [Translate Embedded Python _BETA_](#translate-embedded-python-_beta_)
 -   [Requirements](#requirements)
 -   [Installation](#installation)
     -   [Install from VSCode Marketplace](#install-from-vscode-marketplace)
@@ -52,6 +53,12 @@ This command automatically adds `Set`, `Do` and `Write` to your InterSystems Obj
 ![demo](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demo.gif)
 
 > Tip: You can use IntelliSense even if you have errors in your code. -->
+
+### `Open InterSystems Class Documentation`
+
+Remebering all your class names and their properties can be difficult. The `Open InterSystems Class Documentation` command makes it easy to access the documentation of any class. Simply place your cursor within a class name and execute the command. The command will automatically open the documentation of the class on the side or in your browser.
+
+<img alt="png" src="https://raw.githubusercontent.com/phil1436/ownobjectscriptextension/master/resources/demoOpenInterSystemsClassDocumentation.gif" width="100%"/>
 
 ### `Add Method Description`
 
@@ -142,8 +149,10 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 ### Own ObjectScript Documentation
 
 -   `Add Method Description`: Adds a description template to your `Method` or `ClassMethod`. See [here](#add-method-description) for more information.
--   `Edit Method Description Template`: Opens the _MethodDescriptionTemplate.json_ file so you can edit the method template. Reload Window after editing!
+-   `Edit Method Description Template`: Opens the _MethodDescriptionTemplate.json_ file so you can edit the method template. **Reload Window after editing!**
 -   `Add Inline Comments`: Adds a comment in the current Method every specified count of lines without any comment (Default is every 5 lines).
+-   `Open InterSystems Class Documentation`: Opens the documentation of the current class. See [here](#open-intersystems-class-documentation) for more information.
+-   `InterSystems Web Search`: Search a question about InterSystems ObjectScript on the web. It will open a new tab in your browser with the search results for your question.
 
 ### Own ObjectScript SQL
 
@@ -175,6 +184,11 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 -   `Ask For Package First`: Set if the extension should ask for the package first (Default: _disabled_).
 -   `Service: Add Target Config Names`: If enabled a property called `TargetConfigNames` will be added to your service, that represent the business partners inside of the production. (Default: _disabled_).
 
+### Documentation
+
+-   `Open In Browser`: If enabled the command `Own ObjectScript Documentation: Open InterSystems Class Documentation` will open the documentation in the browser otherwise it will open in VSCode (Default: _disabled_).
+-   `Use Duck Duck Go`: If enabled the command `Own ObjectScript Documentation: InterSystems Web Search` will use the searchengine DuckDuckGo otherwise it will use Google (Default: _disabled_).
+
 ---
 
 ## Color Theme
@@ -193,11 +207,13 @@ The extension will add a new color theme called _InterSystems Real Dark_. You ca
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
-### [v0.0.16](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.16)
+### [v0.0.17](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.17)
 
--   Refactoring
 -   Bug fixes
--   Command `Add Method Description Template` renamed to `Add Method Description`
+-   Category `Own ObjectScript Comment` renamed to `Own ObjectScript Documentation`
+-   Method description template changed
+-   Command `Own ObjectScript Documentation: Open InterSystems Class Documentation` added
+-   Command `Own ObjectScript Documentation: InterSystems Web Search` added
 
 ---
 

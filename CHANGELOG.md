@@ -2,10 +2,13 @@
 
 ---
 
-## [v0.0.17](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.17) (2023-?-?)
+## [v0.0.17](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.17) (2023-7-17)
 
 -   Bug fixes
 -   Category `Own ObjectScript Comment` renamed to `Own ObjectScript Documentation`
+-   Method description template changed
+-   Command `Own ObjectScript Documentation: Open InterSystems Class Documentation` added
+-   Command `Own ObjectScript Documentation: InterSystems Web Search` added
 
 ---
 
