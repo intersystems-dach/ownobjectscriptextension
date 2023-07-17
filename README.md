@@ -56,7 +56,7 @@ This command automatically adds `Set`, `Do` and `Write` to your InterSystems Obj
 
 ### `Open InterSystems Class Documentation`
 
-Remebering all your class names and their properties can be difficult. The `Open InterSystems Class Documentation` command makes it easy to access the documentation of any class. Simply place your cursor within a class name and execute the command. The command will automatically open the documentation of the class on the side or in your browser.
+Remembering all your class names and their properties can be difficult. The `Open InterSystems Class Documentation` command makes it easy to access the documentation of any class. Simply place your cursor within a class name and execute the command. The command will automatically open the documentation of the class on the side or in your favorite browser.
 
 <img alt="png" src="https://raw.githubusercontent.com/phil1436/ownobjectscriptextension/master/resources/demoOpenInterSystemsClassDocumentation.gif" width="100%"/>
 
@@ -152,7 +152,7 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 -   `Edit Method Description Template`: Opens the _MethodDescriptionTemplate.json_ file so you can edit the method template. **Reload Window after editing!**
 -   `Add Inline Comments`: Adds a comment in the current Method every specified count of lines without any comment (Default is every 5 lines).
 -   `Open InterSystems Class Documentation`: Opens the documentation of the current class. See [here](#open-intersystems-class-documentation) for more information.
--   `InterSystems Web Search`: Search a question about InterSystems ObjectScript on the web. It will open a new tab in your browser with the search results for your question.
+-   `InterSystems Web Search`: Search a question about InterSystems ObjectScript on the web. It will open a new tab in your browser with the search results for your question together with the keywords `intersystems` and `objectscript`.
 
 ### Own ObjectScript SQL
 
