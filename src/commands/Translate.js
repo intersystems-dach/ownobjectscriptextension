@@ -132,8 +132,9 @@ function translateEmbPython() {
         vscode.workspace
             .getConfiguration('ownobjectscriptextension')
             .get('SaveFile')
-    )
+    ) {
         vscode.window.activeTextEditor.document.save();
+    }
 }
 
 module.exports = {

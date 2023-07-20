@@ -2,6 +2,13 @@
 
 ---
 
+## [v0.0.18](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.18) (2023-7-20)
+
+-   Bug fixes
+-   `Own ObjectScript Documentation: Open InterSystems Class Documentation` improved
+
+---
+
 ## [v0.0.17](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.17) (2023-7-17)
 
 -   Bug fixes

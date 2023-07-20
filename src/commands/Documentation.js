@@ -21,8 +21,8 @@ function addMethodDescriptionTemplate() {
         let line = vscode.window.activeTextEditor.document.lineAt(i);
         let trimedLine = line.text.toLowerCase().replace(/\s/g, '');
         if (
-            trimedLine.startsWith('method') ||
-            trimedLine.startsWith('classmethod')
+            line.text.toLowerCase().startsWith('method') ||
+            line.text.toLowerCase().startsWith('classmethod')
         ) {
             let offset = 1;
             let lineString = line.text;
@@ -78,7 +78,6 @@ function addMethodDescriptionTemplate() {
 
     // add paremeter description
     template += globalFunctions.makeParamterTemplate(startLine);
-
     //if has return value
     if (startLine.split(')')[1].toLowerCase().includes('as')) {
         // Add return description
@@ -112,7 +111,6 @@ function addMethodDescriptionTemplate() {
 
     //get classname
     let className = globalFunctions.getClassName();
-
     //get method name
     let methodName = startLine.split(' ')[1];
     if (methodName.includes('(')) methodName = methodName.split('(')[0];
@@ -224,16 +222,106 @@ function addInlineComments() {
 function openDocumentation() {
     if (!globalFunctions.preConditions()) return;
 
-    let selection = vscode.window.activeTextEditor.selection;
+    const selection = vscode.window.activeTextEditor.selection;
 
     let searchString =
         vscode.window.activeTextEditor.document.getText(selection);
     if (selection.isEmpty) {
-        searchString = vscode.window.activeTextEditor.document.getText(
+        let wordRange =
             vscode.window.activeTextEditor.document.getWordRangeAtPosition(
                 selection.start
-            )
-        );
+            );
+
+        searchString =
+            vscode.window.activeTextEditor.document.getText(wordRange);
+
+        // get character before
+        if (wordRange.start.character != 0) {
+            let characterBefore =
+                vscode.window.activeTextEditor.document.getText(
+                    new vscode.Range(
+                        new vscode.Position(
+                            wordRange.start.line,
+                            wordRange.start.character - 1
+                        ),
+                        wordRange.start
+                    )
+                );
+            while (characterBefore == '.') {
+                wordRange =
+                    vscode.window.activeTextEditor.document.getWordRangeAtPosition(
+                        new vscode.Position(
+                            wordRange.start.line,
+                            wordRange.start.character - 1
+                        )
+                    );
+                searchString =
+                    vscode.window.activeTextEditor.document.getText(wordRange) +
+                    '.' +
+                    searchString;
+                if (wordRange.start.character == 0) break;
+                characterBefore =
+                    vscode.window.activeTextEditor.document.getText(
+                        new vscode.Range(
+                            new vscode.Position(
+                                wordRange.start.line,
+                                wordRange.start.character - 1
+                            ),
+                            wordRange.start
+                        )
+                    );
+            }
+        }
+        wordRange =
+            vscode.window.activeTextEditor.document.getWordRangeAtPosition(
+                selection.start
+            );
+        if (
+            wordRange.end.character !=
+            vscode.window.activeTextEditor.document.lineAt(wordRange.end.line)
+                .range.end.character
+        ) {
+            let characterAfter =
+                vscode.window.activeTextEditor.document.getText(
+                    new vscode.Range(
+                        wordRange.end,
+                        new vscode.Position(
+                            wordRange.end.line,
+                            wordRange.end.character + 1
+                        )
+                    )
+                );
+            while (characterAfter == '.') {
+                wordRange =
+                    vscode.window.activeTextEditor.document.getWordRangeAtPosition(
+                        new vscode.Position(
+                            wordRange.end.line,
+                            wordRange.end.character + 1
+                        )
+                    );
+                searchString =
+                    searchString +
+                    '.' +
+                    vscode.window.activeTextEditor.document.getText(wordRange);
+                if (
+                    wordRange.end.character ==
+                    vscode.window.activeTextEditor.document.lineAt(
+                        wordRange.end.line
+                    ).range.end.character
+                )
+                    break;
+                characterAfter =
+                    vscode.window.activeTextEditor.document.getText(
+                        new vscode.Range(
+                            wordRange.end,
+                            new vscode.Position(
+                                wordRange.end.line,
+                                wordRange.end.character + 1
+                            )
+                        )
+                    );
+            }
+        }
     }
 
     if (
@@ -359,7 +447,7 @@ async function getHTMLFromURL(url) {
         const response = await axios.get(url);
         return response.data;
     } catch (error) {
-        console.error('Error fetching HTML:', error.message);
+        vscode.window.showErrorMessage('Error fetching HTML:' + error.message);
         return null;
     }
 }

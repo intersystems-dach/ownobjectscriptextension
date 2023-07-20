@@ -5,7 +5,7 @@
     "author": "Philipp B.",
     "publisher": "PhilippB",
     "license": "MIT",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "repository": {
         "type": "github",
         "url": "https://github.com/phil1436/ownobjectscriptextension"
@@ -103,7 +103,13 @@
             "editor/context": [
                 {
                     "command": "ownobjectscriptextension.openDocumentation",
-                    "group": "Own ObjectScript Extension"
+                    "group": "ObjectScript",
+                    "when": "editorLangId == objectscript-class"
+                },
+                {
+                    "command": "ownobjectscriptextension.addMethodDescriptionTemplate",
+                    "group": "ObjectScript",
+                    "when": "editorLangId == objectscript-class"
                 }
             ]
         },

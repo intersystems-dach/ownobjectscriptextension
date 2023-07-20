@@ -121,6 +121,7 @@ git clone https://github.com/phil1436/ownobjectscriptextension C:\Users\<your-us
 
 or download the [latest realease](https://github.com/phil1436/ownobjectscriptextension/releases/latest) and extract the file into `~/.vscode/extensions`.
 
+-   Go to the extension folder and run `npm install` in the terminal.
 -   If the extension did not got installed, run the command `Developer: Install Extension from Location...` and choose the extension folder.
 
 ---
@@ -207,13 +208,10 @@ The extension will add a new color theme called _InterSystems Real Dark_. You ca
 
 ## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
-### [v0.0.17](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.17)
+### [v0.0.18](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.18)
 
 -   Bug fixes
--   Category `Own ObjectScript Comment` renamed to `Own ObjectScript Documentation`
--   Method description template changed
--   Command `Own ObjectScript Documentation: Open InterSystems Class Documentation` added
--   Command `Own ObjectScript Documentation: InterSystems Web Search` added
+-   `Own ObjectScript Documentation: Open InterSystems Class Documentation` improved
 
 ---
 

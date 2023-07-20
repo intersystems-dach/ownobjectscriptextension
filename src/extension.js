@@ -6,10 +6,6 @@ const SQL = require('./commands/SQL');
 const Translate = require('./commands/Translate');
 const Create = require('./commands/Create');
 
-const WorkspaceManager = require('./WorkspaceManager.js');
-const workspaceManager = new WorkspaceManager();
-workspaceManager.init();
-
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -86,32 +82,30 @@ function activate(context) {
         Create.createNewClass
     );
 
-    /* const completionProvider = vscode.languages.registerCompletionItemProvider(
-        'javascript',
-        {
-            provideCompletionItems(document, position) {
-                // Check if the current word is 'hello'
-                const wordRange = document.getWordRangeAtPosition(position);
-                const currentWord = wordRange
-                    ? document.getText(wordRange)
-                    : '';
-                console.log(currentWord);
-                if (currentWord !== 'hello') {
-                    return undefined;
-                }
+    /* context.subscriptions.push(
+        vscode.languages.registerCompletionItemProvider(
+            'objectscript-class',
+            {
+                provideCompletionItems(document, position, token) {
+                    console.log('got here');
+                    const linePrefix = document
+                        .lineAt(position)
+                        .text.substr(0, position.character);
+                    if (!linePrefix.endsWith('///')) {
+                        return undefined;
+                    }
 
-                // Return a completion item for 'hello'
-                const completionItem = new vscode.CompletionItem(
-                    'hello',
-                    vscode.CompletionItemKind.Keyword
-                );
-                completionItem.insertText = 'Hello, world!';
-                return [completionItem];
+                    return [
+                        new vscode.CompletionItem(
+                            'Hello World',
+                            vscode.CompletionItemKind.Text
+                        ),
+                    ];
+                },
             },
-        },
-        'h' // Specify the trigger character for the completion provider
-    );
-    context.subscriptions.push(completionProvider); */
+            '/'
+        )
+    ); */
 }
 
 // This method is called when your extension is deactivated
