@@ -1,6 +1,6 @@
 <div align="center">
     <br />
-    <img src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/logo.png" alt="OwnObjectScriptExtensionLogo" width="30%"/>
+    <img src="https://github.com/intersystems-dach/ownobjectscriptextension/raw/master/resources/logo.png" alt="OwnObjectScriptExtensionLogo" width="30%"/>
     <h1>OwnObjectScriptExtension</h1>
     <p>
     A <a href = "https://code.visualstudio.com/">Visual Studio Code</a> extension that supplies tools for <a href="https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_INTRO">InterSystems ObjectScript</a>.
@@ -8,18 +8,18 @@
 </div>
 
 <div align="center">
-    <a href="https://github.com/phil1436/ownobjectscriptextension/releases">
-        <img src= "https://img.shields.io/github/v/release/phil1436/ownobjectscriptextension?display_name=tag" alt="current release">
+    <a href="https://github.com/intersystems-dach/ownobjectscriptextension/releases">
+        <img src= "https://img.shields.io/github/v/release/intersystems-dach/ownobjectscriptextension?display_name=tag" alt="current release">
     </a>
     <img alt="Visual Studio Marketplace Installs" src="https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/PhilippB.ownobjectscriptextension">
-    <a href="https://github.com/phil1436/ownobjectscriptextension/blob/master/LICENSE">
-        <img src="https://img.shields.io/github/license/phil1436/ownobjectscriptextension" alt="license">
+    <a href="https://github.com/intersystems-dach/ownobjectscriptextension/blob/master/LICENSE">
+        <img src="https://img.shields.io/github/license/intersystems-dach/ownobjectscriptextension" alt="license">
     </a>
-    <a href="https://github.com/phil1436/ownobjectscriptextension/stargazers">
-        <img src="https://img.shields.io/github/stars/phil1436/ownobjectscriptextension" alt="stars">
+    <a href="https://github.com/intersystems-dach/ownobjectscriptextension/stargazers">
+        <img src="https://img.shields.io/github/stars/intersystems-dach/ownobjectscriptextension" alt="stars">
     </a>
-    <a href="https://github.com/phil1436/ownobjectscriptextension/commits/master">
-        <img src="https://img.shields.io/github/last-commit/phil1436/ownobjectscriptextension" alt="last commit">
+    <a href="https://github.com/intersystems-dach/ownobjectscriptextension/commits/master">
+        <img src="https://img.shields.io/github/last-commit/intersystems-dach/ownobjectscriptextension" alt="last commit">
     </a>
 </div>
 
@@ -50,7 +50,7 @@
 
 This command automatically adds `Set`, `Do` and `Write` to your InterSystems ObjectScript code.
 
-![demo](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demo.gif)
+![demo](https://github.com/intersystems-dach/ownobjectscriptextension/raw/master/resources/demo.gif)
 
 > Tip: You can use IntelliSense even if you have errors in your code. -->
 
@@ -58,15 +58,15 @@ This command automatically adds `Set`, `Do` and `Write` to your InterSystems Obj
 
 Remembering all your class names and their properties can be difficult. The `Open InterSystems Class Documentation` command makes it easy to access the documentation of any class. Simply place your cursor within a class name and execute the command. The command will automatically open the documentation of the class on the side or in your favorite browser.
 
-<img alt="png" src="https://raw.githubusercontent.com/phil1436/ownobjectscriptextension/master/resources/demoOpenInterSystemsClassDocumentation.gif" width="100%"/>
+<img alt="png" src="https://raw.githubusercontent.com/intersystems-dach/ownobjectscriptextension/master/resources/demoOpenInterSystemsClassDocumentation.gif" width="100%"/>
 
 ### `Add Method Description`
 
 Writing comprehensive method descriptions is essential for maintaining code clarity and promoting collaboration. Simply place your cursor within a method and execute the `Add Method Description` command. The command will automatically generate a description template for the method, making it easy to provide meaningful documentation.
 
-![demoAddDescription](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoAddDescription.gif)
+![demoAddDescription](https://github.com/intersystems-dach/ownobjectscriptextension/raw/master/resources/demoAddDescription.gif)
 
-<img alt="png" src="https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoAddDescriptionClassReference.png" width="70%"/>
+<img alt="png" src="https://github.com/intersystems-dach/ownobjectscriptextension/raw/master/resources/demoAddDescriptionClassReference.png" width="70%"/>
 
 > Tip: You can change the template with the `Edit Method Description Template` command.
 
@@ -74,7 +74,7 @@ Writing comprehensive method descriptions is essential for maintaining code clar
 
 When working with ObjectScript, you often need to interact with databases. The `Make Select Statement` feature simplifies the process of generating SQL _SELECT_ statements. By analyzing the currently opened ObjectScript file, the extension creates a _SELECT_ statement based on the class name.
 
-![demoMakeSelectStatement](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/DemoMakeSelectStatement.gif)
+![demoMakeSelectStatement](https://github.com/intersystems-dach/ownobjectscriptextension/raw/master/resources/DemoMakeSelectStatement.gif)
 
 > Tip: Install the [SQLTools](https://github.com/mtxr/vscode-sqltools) extension to execute the statement directly within Visual Studio Code.
 
@@ -82,7 +82,7 @@ When working with ObjectScript, you often need to interact with databases. The `
 
 Creating new ObjectScript classes, messages, business services, or business operations is made more convenient with the `Create New Wizard` feature. This wizard-like interface guides you through the process of generating new components, resembling the familiar InterSystems Studio Wizard. By executing the command and following the instructions, you can quickly set up new ObjectScript artifacts, saving you time and effort.
 
-![DemoCreateNewClass](https://raw.githubusercontent.com/phil1436/ownobjectscriptextension/master/resources/DemoCreateNewClass.gif)
+![DemoCreateNewClass](https://raw.githubusercontent.com/intersystems-dach/ownobjectscriptextension/master/resources/DemoCreateNewClass.gif)
 
 > This feature is currently in beta and may not work as expected. You may have to adjust the generated code.
 
@@ -90,7 +90,7 @@ Creating new ObjectScript classes, messages, business services, or business oper
 
 In certain scenarios, you may want to leverage the power of Python within your ObjectScript code. The `Translate Embedded Python` feature allows you to translate ObjectScript methods to embedded Python methods. By executing the command, the extension generates a new method with the same name, prefixed with _py_. This enables you to incorporate Python functionality while maintaining the structure and organization of your codebase.
 
-![demoTranslateEmbeddedPython](https://github.com/phil1436/ownobjectscriptextension/raw/master/resources/demoTranslateEmbeddedPython.gif)
+![demoTranslateEmbeddedPython](https://github.com/intersystems-dach/ownobjectscriptextension/raw/master/resources/demoTranslateEmbeddedPython.gif)
 
 > This feature is currently in beta and may not work as expected. You may have to adjust the generated code.
 
@@ -116,10 +116,10 @@ In certain scenarios, you may want to leverage the power of Python within your O
 -   Clone this repository (recommended under `~/.vscode/extensions`):
 
 ```shell
-git clone https://github.com/phil1436/ownobjectscriptextension C:\Users\<your-user>\.vscode\extensions\ownobjectscriptextension
+git clone https://github.com/intersystems-dach/ownobjectscriptextension C:\Users\<your-user>\.vscode\extensions\ownobjectscriptextension
 ```
 
-or download the [latest realease](https://github.com/phil1436/ownobjectscriptextension/releases/latest) and extract the file into `~/.vscode/extensions`.
+or download the [latest realease](https://github.com/intersystems-dach/ownobjectscriptextension/releases/latest) and extract the file into `~/.vscode/extensions`.
 
 -   Go to the extension folder and run `npm install` in the terminal.
 -   If the extension did not got installed, run the command `Developer: Install Extension from Location...` and choose the extension folder.
@@ -140,7 +140,7 @@ This extension will create a directory named _ownobjectscriptextension-workspace
 
 ### Own ObjectScript Modifier
 
--   `Add ObjectScript Modifier`: Adds `Set`, `Do` and `Write` modifier to your ObjectScript code. <!-- See [here](https://github.com/phil1436/ownobjectscriptextension#add-objectscript-modifier) for more information. -->
+-   `Add ObjectScript Modifier`: Adds `Set`, `Do` and `Write` modifier to your ObjectScript code. <!-- See [here](https://github.com/intersystems-dach/ownobjectscriptextension#add-objectscript-modifier) for more information. -->
 -   `Show ObjectScript Keywords`: Shows the current list of keywords.
 -   `Add ObjectScript Keyword`: Adds an Objectscript keyword to options.json. If a line starts with one of those keywords no modifier will be added.
 -   `Remove ObjectScript Keyword`: Remove an ObjectScript keyword.
@@ -196,7 +196,7 @@ Go to `File > Preferences > Settings` and than navigate to `Extensions > OwnObje
 
 The extension will add a new color theme called _InterSystems Real Dark_. You can change it via `File > Preferences > Theme > Color Theme`.
 
-![InterSystemsRealDarkExample](https://raw.githubusercontent.com/phil1436/ownobjectscriptextension/master/resources/InterSystemsRealDarkExample.png)
+![InterSystemsRealDarkExample](https://raw.githubusercontent.com/intersystems-dach/ownobjectscriptextension/master/resources/InterSystemsRealDarkExample.png)
 
 ---
 
@@ -206,9 +206,9 @@ The extension will add a new color theme called _InterSystems Real Dark_. You ca
 
 ---
 
-## [Release Notes](https://github.com/phil1436/ownobjectscriptextension/blob/master/CHANGELOG.md)
+## [Release Notes](https://github.com/intersystems-dach/ownobjectscriptextension/blob/master/CHANGELOG.md)
 
-### [v0.0.18](https://github.com/phil1436/ownobjectscriptextension/tree/0.0.18)
+### [v0.0.18](https://github.com/intersystems-dach/ownobjectscriptextension/tree/0.0.18)
 
 -   Bug fixes
 -   `Own ObjectScript Documentation: Open InterSystems Class Documentation` improved
@@ -219,7 +219,7 @@ View on [Marketplace](https://marketplace.visualstudio.com/items?itemName=Philip
 
 ---
 
-by [Philipp B.](https://github.com/phil1436)
+by [Philipp B.](https://github.com/cophilot)
 
 powered by [InterSystems](https://www.intersystems.com/).
 

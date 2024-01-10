@@ -8,7 +8,7 @@
     "version": "0.0.18",
     "repository": {
         "type": "github",
-        "url": "https://github.com/phil1436/ownobjectscriptextension"
+        "url": "https://github.com/intersystems-dach/ownobjectscriptextension"
     },
     "engines": {
         "vscode": "^1.73.0"
